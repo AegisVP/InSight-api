@@ -1,19 +1,19 @@
-const router = require('express').Router();
-require('dotenv').config();
-const app = require('./app');
-const { mongoConnect } = require('./db/connections');
+require("dotenv").config();
+const PORT = process.env.PORT || 8080;
+const { app } = require("./app");
+const { mongoConnect } = require("./db/connections");
 
-const PORT = process.env.PORT || 3000;
+async function start() {
+	try {
+		mongoConnect();
 
-const start = async () => {
-  try {
-    await mongoConnect();
-    app.listen(PORT, () => {
-      console.log(`Server running. Use our API on port: ${PORT}`);
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+		app.listen(PORT, () => {
+			console.log(`Server running. Use our API on port: ${PORT}`);
+		});
+	} catch (error) {
+		console.error("Error:", error.message);
+		process.exit(1);
+	}
+}
 
 start();
