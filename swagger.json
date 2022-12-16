@@ -3,7 +3,7 @@
   "info": {
     "title": "Slim Mom`s - OpenAPI 3.0",
     "version": "1.0.0",
-    "description": "This is a description of the InSight team's Slim Mom's project server, based on the OpenAPI 3.0 specification.\n\nThis server allows you to get information about the daily calorie intake and a list of foods to avoid based on physical data and blood type.\n\nAlso, the ability to save, receive and edit the list of foods eaten for a specific day is implemented.\nThe information is tied to a specific user (a token is used).\n\nImplemented registration, user login/logout\n\nSome useful links:\n- [The Slim Mom's repository](https://github.com/AegisVP/InSight-web)\n- [The source API definition for the Slim Mom's](https://github.com/AegisVP/InSight-api/blob/main/swagger.yaml)"
+    "description": "This is a description of the InSight team's Slim Mom's project server, based on the OpenAPI 3.0 specification.\n\nThis server allows you to get information about the daily calorie intake and a list of foods to avoid based on physical data and blood type.\n\nAlso, the ability to save, receive and edit the list of foods eaten for a specific day is implemented.\nThe information is tied to a specific user (a token is used).\n\nImplemented registration, user login/logout\n\nSome useful links:\n- [The Slim Mom's repository](https://github.com/AegisVP/InSight-web)\n- [The source API definition for the Slim Mom's](https://github.com/AegisVP/InSight-api/blob/main/swagger.json)"
   },
   "servers": [
     {
