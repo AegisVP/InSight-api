@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  googleAuth: {
+    type: Boolean,
+    default: false,
+  },
   height: {
     type: Number,
   },
