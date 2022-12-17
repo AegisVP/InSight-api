@@ -25,10 +25,10 @@ const createNotFoundHttpError = (message)=> {
     return err;
   }
   
-  const createServerError = (status, message)=>{
+  const createServerError = (message)=>{
     const err = new Error; 
     err.message = message || "Server error";
-    err.status = status || 500;
+    err.status = 500;
     return err;
   }
 
