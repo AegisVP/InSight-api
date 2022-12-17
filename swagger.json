@@ -21,7 +21,11 @@
     },
     {
       "name": "products",
-      "description": "Products list"
+      "description": "List of all products"
+    },
+    {
+      "name": "diary",
+      "description": "Dayli products list"
     }
   ],
   "paths": {
@@ -270,10 +274,10 @@
         }
       }
     },
-    "/products/{day}": {
+    "/diary/{day}": {
       "get": {
         "tags": [
-          "products"
+          "diary"
         ],
         "summary": "Get list of foods eaten for a specific day",
         "description": "Request must include date in UTC format",
@@ -323,12 +327,12 @@
           }
         }
       },
-      "patch": {
+      "post": {
         "tags": [
-          "products"
+          "diary"
         ],
-        "summary": "Update list of foods eaten for a specific day",
-        "description": "In response you get updated product list for this day",
+        "summary": "Create a note about the food eaten on a specific day",
+        "description": "In response, you receive a product that was created",
         "operationId": "updateProductListByDate",
         "parameters": [
           {
@@ -365,7 +369,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProductList"
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
@@ -385,13 +389,13 @@
         }
       }
     },
-    "/products/{day}/{prod_Id}": {
-      "put": {
+    "/diary/{day}/{prod_Id}": {
+      "delete": {
         "tags": [
-          "products"
+          "diary"
         ],
         "summary": "Delete information about specific food by product id",
-        "description": "In response you get updated product list for this day",
+        "description": "In response, you receive a product that was deleted",
         "operationId": "deleteProductById",
         "parameters": [
           {
@@ -428,10 +432,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Product"
-                  }
+                  "$ref": "#/components/schemas/Product"
                 }
               }
             }
