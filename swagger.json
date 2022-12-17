@@ -280,7 +280,7 @@
 			"diary"
 		  ],
 		  "summary": "Get list of foods eaten for a specific day",
-		  "description": "Request must include date in UTC format",
+		  "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'",
 		  "operationId": "getDiaryByDate",
 		  "parameters": [
 			{
@@ -332,7 +332,7 @@
 			"diary"
 		  ],
 		  "summary": "Create a note about the food eaten on a specific day",
-		  "description": "In response, you receive a product that was created",
+		  "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'. In response, you receive a product that was created",
 		  "operationId": "createDiaryItemByDate",
 		  "parameters": [
 			{
@@ -395,7 +395,7 @@
 			"diary"
 		  ],
 		  "summary": "Delete information about specific food by product id",
-		  "description": "In response, you receive a product that was deleted",
+		  "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022/5d51694802b2373622ff553b'. In response, you receive a product that was deleted",
 		  "operationId": "deleteProductById",
 		  "parameters": [
 			{
