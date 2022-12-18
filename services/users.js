@@ -1,11 +1,10 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { User } = require('../db/userModel');
-const { loginError, signupError } = require('../utils/errorCreators');
+const { signupError, createAuthError } = require('../utils/errorCreators');
 
 const signupUser = async (name, email, password) => {
   if (await User.findOne({ email })) {
-    // TODO ERRORS
     throw signupError();
   }
   const user = new User({
@@ -34,7 +33,7 @@ const signupUser = async (name, email, password) => {
 const loginUser = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) {
-    throw new Error('Email or password is wrong');
+    throw createAuthError('Email or password is wrong');
   }
 
   if (user.googleAuth) {
@@ -50,7 +49,7 @@ const loginUser = async (email, password) => {
   }
 
   if (!(await bcrypt.compare(password, user.password))) {
-    throw new Error('Email or password is wrong');
+    throw createAuthError('Email or password is wrong');
   }
 
   const token = jwt.sign(

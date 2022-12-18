@@ -46,13 +46,6 @@ const signupError = message => {
   return err;
 };
 
-const loginError = message => {
-  const err = new Error();
-  err.message = message || 'Email or password is wrong';
-  err.status = 401;
-  return err;
-};
-
 module.exports = {
   createValidationError,
   createAuthError,
@@ -61,5 +54,4 @@ module.exports = {
   createServerError,
   createCustomError,
   signupError,
-  loginError,
 };

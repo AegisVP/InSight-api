@@ -6,13 +6,10 @@ const { authMiddleware } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-// AUTHMIDDLEWEAR for logout
-// authMiddleware
-
 router.post('/signup', loginValidation, tryCatchWrapper(signupController));
 
 router.post('/login', loginValidation, tryCatchWrapper(loginController));
 
-router.post('/logout', logoutController);
+router.post('/logout', authMiddleware, tryCatchWrapper(logoutController));
 
 module.exports = router;

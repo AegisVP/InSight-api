@@ -1,30 +1,29 @@
 const jwt = require('jsonwebtoken');
-
 const { User } = require('../db/userModel');
+const { createAuthError } = require('../utils/errorCreators');
 
 const authMiddleware = async (req, res, next) => {
   try {
-    const [tokenType, token] = req.header['authorization'].split(' ');
+    const [tokenType, token] = req.headers['authorization'].split(' ');
 
     if (!token || tokenType !== 'Bearer') {
-      // TODO ERROR
-      next(new Error('Not autorized'));
+      next(createAuthError());
     }
 
-    const { id } = jwt.decode(token, poccess.env.JWT_SECRET);
-    const user = await User.findById(id);
+    const user = jwt.decode(token, process.env.JWT_SECRET);
 
-    if (!user || token !== user.token) {
-      // TODO ERROR
-      next(new Error('Not autorized'));
+    const auditUser = await User.findById(user._id);
+
+    if (!auditUser || token !== auditUser.token) {
+      next(createAuthError());
     }
 
     req.token = token;
-    req.user = userж;
+    req.user = user;
 
     next();
   } catch (err) {
-    next(new Error('Not autorized'));
+    next(createAuthError());
   }
 };
 
