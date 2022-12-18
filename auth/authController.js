@@ -61,10 +61,9 @@ const googleRedirect = async (req, res) => {
   const user = await authWithGoogle(name, email);
 
   const token = user.token;
-  const returnRedirectUrl = `${FRONTEND_URL}/${GOOGLE_FRONTEND_HANDLER}?token=${token}`;
+  const returnRedirectUrl = `${FRONTEND_URL}/${GOOGLE_FRONTEND_HANDLER}?token=${token}&email=${user.email}&name=${user.name}`;
 
-  return res.json({ token, name: user.name, email: user.email }).redirect(returnRedirectUrl);
-  // return res.redirect(returnRedirectUrl);
+  return res.redirect(returnRedirectUrl);
 };
 
 module.exports = {

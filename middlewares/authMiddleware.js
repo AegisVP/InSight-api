@@ -4,7 +4,7 @@ const { createAuthError } = require('../utils/errorCreators');
 
 const authMiddleware = async (req, res, next) => {
   try {
-    const [tokenType, token] = req.headers['authorization'].split(' ');
+    const [tokenType, token] = req.headers.authorization.split(' ');
 
     if (!token || tokenType !== 'Bearer') {
       next(createAuthError());
@@ -15,6 +15,11 @@ const authMiddleware = async (req, res, next) => {
     const auditUser = await User.findById(user._id);
 
     if (!auditUser || token !== auditUser.token) {
+      next(createAuthError());
+    }
+
+    if (token !== auditUser.token) {
+      await User.findByIdAndUpdate(_id, { token: null }, { runValidators: true });
       next(createAuthError());
     }
 

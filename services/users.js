@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { User } = require('../db/userModel');
 const { signupError, createAuthError } = require('../utils/errorCreators');
+const { createToken } = require('../utils/createToken');
 
 const signupUser = async (name, email, password) => {
   if (await User.findOne({ email })) {
@@ -13,15 +13,11 @@ const signupUser = async (name, email, password) => {
     password,
   });
 
-  const token = jwt.sign(
-    {
-      _id: user._id,
-    },
-    process.env.JWT_SECRET
-  );
+  const token = createToken(user);
 
   user.token = token;
 
+  // TODO Change this
   if (!password) {
     user.googleAuth = true;
   }
@@ -30,19 +26,14 @@ const signupUser = async (name, email, password) => {
   return user;
 };
 
-const loginUser = async (email, password) => {
+const loggedInUser = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) {
     throw createAuthError('Email or password is wrong');
   }
 
   if (user.googleAuth) {
-    const token = jwt.sign(
-      {
-        _id: user._id,
-      },
-      process.env.JWT_SECRET
-    );
+    const token = createToken(user);
     await User.findByIdAndUpdate(user._id, { token }, { runValidators: true });
 
     return token;
@@ -52,12 +43,7 @@ const loginUser = async (email, password) => {
     throw createAuthError('Email or password is wrong');
   }
 
-  const token = jwt.sign(
-    {
-      _id: user._id,
-    },
-    process.env.JWT_SECRET
-  );
+  const token = createToken(user);
   const loginUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true });
 
   return loginUser;
@@ -69,16 +55,11 @@ const authWithGoogle = async (name, email) => {
     const user = await signupUser(name, email);
     return user;
   } else if (user.googleAuth) {
-    const token = jwt.sign(
-      {
-        _id: user._id,
-      },
-      process.env.JWT_SECRET
-    );
+    const token = createToken(user);
     const newUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true });
 
     return newUser;
   }
 };
 
-module.exports = { signupUser, loginUser, authWithGoogle };
+module.exports = { signupUser, loggedInUser, authWithGoogle };
