@@ -1,4 +1,4 @@
-const { signupUser, loggedInUser } = require('../services/users');
+const { signupUser, loginUser } = require('../services/users');
 const { User } = require('../db/userModel');
 
 const signupController = async (req, res) => {
@@ -11,7 +11,7 @@ const signupController = async (req, res) => {
 const loginController = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await loggedInUser(email, password);
+  const user = await loginUser(email, password);
   res.status(200).json({ status: 'success', token: user.token, id: user._id });
 };
 

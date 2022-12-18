@@ -26,7 +26,7 @@ const signupUser = async (name, email, password) => {
   return user;
 };
 
-const loggedInUser = async (email, password) => {
+const loginUser = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) {
     throw createAuthError('Email or password is wrong');
@@ -44,9 +44,9 @@ const loggedInUser = async (email, password) => {
   }
 
   const token = createToken(user);
-  const loginUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true });
+  const loggedInUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true });
 
-  return loginUser;
+  return loggedInUser;
 };
 
 const authWithGoogle = async (name, email) => {
@@ -62,4 +62,4 @@ const authWithGoogle = async (name, email) => {
   }
 };
 
-module.exports = { signupUser, loggedInUser, authWithGoogle };
+module.exports = { signupUser, loginUser, authWithGoogle };
