@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BACKEND_URL, FRONTEND_URL, GOOGLE_FRONTEND_HANDLER } = process.env;
 const queryString = require('query-string');
+const { authWithGoogle } = require('../services/users');
 
 const googleAuth = (req, res) => {
   const stringifiedParams = queryString.stringify({
@@ -55,15 +56,14 @@ const googleRedirect = async (req, res) => {
   ).data;
 
   if (!userData) return res.json({ message: 'error 4' });
-  console.log({ userData });
+  const { name, email } = userData;
 
-  // TODO: Create logged in user, return token and user data
+  const user = await authWithGoogle(name, email);
 
-  const token = 'ToBeToken';
-  const returnRedirectUrl = `${FRONTEND_URL}/${GOOGLE_FRONTEND_HANDLER}?token=${token}`;
+  const token = user.token;
+  const returnRedirectUrl = `${FRONTEND_URL}/${GOOGLE_FRONTEND_HANDLER}?token=${token}&email=${user.email}&name=${user.name}`;
 
-  return res.json({ returnRedirectUrl });
-  // return res.redirect(returnRedirectUrl);
+  return res.redirect(returnRedirectUrl);
 };
 
 module.exports = {
