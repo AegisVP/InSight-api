@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { createValidationError } = require('../utils/errorCreators');
 
 module.exports = {
   loginValidation: (req, res, next) => {
@@ -10,7 +11,7 @@ module.exports = {
 
     const validationResult = schema.validate(req.body);
     if (validationResult.error) {
-      return res.status(400).json({ message: validationResult.error });
+      next(createValidationError(validationResult.error));
     }
 
     next();
