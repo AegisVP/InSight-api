@@ -204,11 +204,6 @@
 				"schema": {
 				  "$ref": "#/components/schemas/UserParams"
 				}
-			  },
-			  "application/x-www-form-urlencoded": {
-				"schema": {
-				  "$ref": "#/components/schemas/UserParams"
-				}
 			  }
 			}
 		  },
@@ -389,7 +384,7 @@
 		  }
 		}
 	  },
-	  "/diary/{day}/{prod_Id}": {
+	  "/diary/{day}/{prodId}": {
 		"delete": {
 		  "tags": [
 			"diary"
@@ -408,7 +403,7 @@
 			  }
 			},
 			{
-			  "name": "prod_Id",
+			  "name": "prodId",
 			  "in": "path",
 			  "description": "Product id that needs to be deleted",
 			  "required": true,
@@ -481,15 +476,15 @@
 				  "type": "number",
 				  "example": 22
 				},
-				"currrent_weight": {
+				"currentWeight": {
 				  "type": "number",
 				  "example": 67
 				},
-				"desire_weight": {
+				"desireWeight": {
 				  "type": "number",
 				  "example": 55
 				},
-				"blood_type": {
+				"bloodType": {
 				  "type": "number",
 				  "example": 2
 				}
@@ -558,15 +553,15 @@
 				  "type": "number",
 				  "example": 22
 				},
-				"currrent_weight": {
+				"currentWeight": {
 				  "type": "number",
 				  "example": 67
 				},
-				"desire_weight": {
+				"desireWeight": {
 				  "type": "number",
 				  "example": 55
 				},
-				"blood_type": {
+				"bloodType": {
 				  "type": "number",
 				  "example": 2
 				}
@@ -588,15 +583,15 @@
 			  "type": "number",
 			  "example": 22
 			},
-			"currrent_weight": {
+			"currentWeight": {
 			  "type": "number",
 			  "example": 67
 			},
-			"desire_weight": {
+			"desireWeight": {
 			  "type": "number",
 			  "example": 55
 			},
-			"blood_type": {
+			"bloodType": {
 			  "type": "number",
 			  "example": 2
 			}
@@ -673,11 +668,11 @@
 		"Diet": {
 		  "type": "object",
 		  "properties": {
-			"daily_intake": {
+			"dailyIntake": {
 			  "type": "number",
 			  "example": "2800"
 			},
-			"stop_prod": {
+			"stopProd": {
 			  "type": "array",
 			  "items": {
 				"$ref": "#/components/schemas/Product"
