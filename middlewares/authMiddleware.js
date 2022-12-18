@@ -14,12 +14,12 @@ const authMiddleware = async (req, res, next) => {
 
     const auditUser = await User.findById(user._id);
 
-    if (!auditUser || token !== auditUser.token) {
+    if (!auditUser) {
       next(createAuthError());
     }
 
     if (token !== auditUser.token) {
-      await User.findByIdAndUpdate(_id, { token: null }, { runValidators: true });
+      await User.findByIdAndUpdate(auditUser._id, { token: null }, { runValidators: true });
       next(createAuthError());
     }
 
