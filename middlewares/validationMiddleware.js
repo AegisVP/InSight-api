@@ -21,5 +21,12 @@ module.exports = {
       email: Joi.string().email({ minDomainSegments: 2 }).required(),
       password: Joi.string().required(),
     });
+
+    const validationResult = schema.validate(req.body);
+    if (validationResult.error) {
+      next(createValidationError(validationResult.error));
+    }
+
+    next();
   },
 };
