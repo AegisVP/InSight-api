@@ -56,15 +56,14 @@ const googleRedirect = async (req, res) => {
   ).data;
 
   if (!userData) return res.json({ message: 'error 4' });
-  console.log({ userData });
   const { name, email } = userData;
-  //  TODO LOGIN IF USER IN BD and SIGNUP IF ELSE
+
   const user = await authWithGoogle(name, email);
 
   const token = user.token;
   const returnRedirectUrl = `${FRONTEND_URL}/${GOOGLE_FRONTEND_HANDLER}?token=${token}`;
 
-  return res.json({ returnRedirectUrl });
+  return res.json({ token, name: user.name, email: user.email }).redirect(returnRedirectUrl);
   // return res.redirect(returnRedirectUrl);
 };
 

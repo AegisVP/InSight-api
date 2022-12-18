@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { User } = require('../db/userModel');
+const { loginError, signupError } = require('../utils/errorCreators');
 
 const signupUser = async (name, email, password) => {
   if (await User.findOne({ email })) {
-    // TODO Write errors
-    throw new Error('Email is use');
+    // TODO ERRORS
+    throw signupError();
   }
   const user = new User({
     name,
@@ -58,9 +59,9 @@ const loginUser = async (email, password) => {
     },
     process.env.JWT_SECRET
   );
-  await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true });
+  const loginUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true });
 
-  return token;
+  return loginUser;
 };
 
 const authWithGoogle = async (name, email) => {
