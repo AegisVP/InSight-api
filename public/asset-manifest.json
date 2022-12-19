@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/InSight-web/static/css/main.655031b4.css",
+    "main.js": "/InSight-web/static/js/main.1ee8afbb.js",
+    "static/media/verdana-bold.ttf": "/InSight-web/static/media/verdana-bold.c4e1b53d02ea7938d5bc.ttf",
+    "static/media/verdana.ttf": "/InSight-web/static/media/verdana.5b0da4fe5677451d28a7.ttf",
+    "index.html": "/InSight-web/index.html",
+    "main.655031b4.css.map": "/InSight-web/static/css/main.655031b4.css.map",
+    "main.1ee8afbb.js.map": "/InSight-web/static/js/main.1ee8afbb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.655031b4.css",
+    "static/js/main.1ee8afbb.js"
+  ]
+}

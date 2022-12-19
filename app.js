@@ -18,6 +18,8 @@ app.use('/api-docs', swaggerUi.setup(swaggerDocument), swaggerUi.serve);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 
+app.use('/InSight-web', express.static('./public'));
+
 app.get('/', function (req, res) {
   res.send('API up');
 });
