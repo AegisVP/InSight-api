@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  isNewUser: {
+    type: Boolean,
+    default: true,
+  },
   googleAuth: {
     type: Boolean,
     default: false,
@@ -29,13 +33,13 @@ const userSchema = new mongoose.Schema({
   age: {
     type: Number,
   },
-  current_weight: {
+  currentWeight: {
     type: Number,
   },
-  desire_weight: {
+  desireWeight: {
     type: Number,
   },
-  blood_type: {
+  bloodType: {
     type: Number,
   },
 });

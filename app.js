@@ -3,7 +3,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-const usersRouter = require('./routers/users');
+const { authRouter, userRouter, frontendRouter, diaryRouter } = require('./routers');
 
 const app = express();
 
@@ -14,18 +14,17 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve);
 app.use('/api-docs', swaggerUi.setup(swaggerDocument), swaggerUi.serve);
 
-app.use('/user', usersRouter);
+app.use('/users', userRouter);
+app.use('/diary', diaryRouter);
 
-app.get('/', function (req, res) {
-  res.send('API up');
-});
+app.use('/InSight-web', frontendRouter);
 
-app.use((req, res) => {
-  res.status(404).json({ message: 'Not found' });
-});
+app.get('/', (_, res) => res.redirect('/InSight-web'));
+
+app.use((_, res) => res.status(404).json({ message: 'Not found' }));
 
 app.use((err, req, res, next) => {
-  console.log('App crashed!!!: ', err.message);
+  console.log('App crashed!!!: ', err.message, err.stack);
 
   if (err.status) {
     return res.status(err.status).json({
@@ -33,7 +32,7 @@ app.use((err, req, res, next) => {
     });
   }
 
-  res.status(500).json({ message: 'Internal server error' });
+  return res.status(500).json({ message: 'Internal server error' });
 });
 
 module.exports = { app };
