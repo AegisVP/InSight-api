@@ -1,11 +1,12 @@
-const fs = require("fs/promises");
-const path = require("path");
+const { Product } = require('../db/product.model');
+const { createProdObj } = require('../utils/ProdListCreators');
 
 async function getStopProduct(bloodType){
-  const prod = await fs.readFile(path.join(__dirname, "../TestData/products.json"), 'utf8');
 
-  const prodFilteredByBloodType = JSON.parse(prod).filter(item => !item.groupBloodNotAllowed[bloodType]);
-  const stopProd = prodFilteredByBloodType.map(({_id, categories, weight, title, calories}) => ({_id, categories, weight, title, calories}));
+  const prod = await Product.find();
+
+  const prodFilteredByBloodType = prod.filter(item => item.groupBloodNotAllowed[bloodType]);
+  const stopProd = prodFilteredByBloodType.map(item=> createProdObj({product: item, weight: 100}));
    
   return stopProd;
 };
