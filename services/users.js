@@ -17,13 +17,13 @@ const signupUser = async (name, email, password) => {
 
   user.token = token;
 
-  // TODO Change this
+  console.log(token);
+
   if (!password) {
     user.googleAuth = true;
   }
-
   await user.save();
-  return user;
+  return { name: user.name, email: user.email, token };
 };
 
 const loginUser = async (email, password) => {
@@ -44,7 +44,12 @@ const loginUser = async (email, password) => {
   }
 
   const token = createToken(user);
-  const loggedInUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true });
+  const loggedInUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true }).select({
+    token: 1,
+    email: 1,
+    name: 1,
+    _id: 0,
+  });
 
   return loggedInUser;
 };
