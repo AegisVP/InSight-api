@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  isNew: {
+    type: Boolean,
+    default: true,
+  },
   googleAuth: {
     type: Boolean,
     default: false,

@@ -5,6 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const authRouter = require('./auth/authRouter');
 const usersRouter = require('./routers/users');
+const frontendRouter = require('./routers/frontendRouter');
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use('/api-docs', swaggerUi.setup(swaggerDocument), swaggerUi.serve);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 
-app.use('/InSight-web', express.static('./public'));
+app.use('/InSight-web', frontendRouter);
 
 app.get('/', (_, res) => res.redirect('/InSight-web'));
 
