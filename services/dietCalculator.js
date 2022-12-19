@@ -7,11 +7,11 @@ async function dietCalculator({height, age, currentWeight, desireWeight, bloodTy
     const stopProd = await getStopProduct(bloodType);
 
     if (!dailyIntake && dailyIntake !== 0) {
-      console.log('Can`t calculate daily intake')
+      throw createServerError('Can`t calculate daily intake')
     };
 
     if (!stopProd.length) {
-      console.log('Can`t generate stop product list')
+      throw createServerError('Can`t generate stop product list')
     };
  
     return {dailyIntake, stopProd};
