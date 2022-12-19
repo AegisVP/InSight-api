@@ -2,8 +2,7 @@ const { createNotFoundHttpError } = require('../utils/errorCreators');
 const { Diary } = require('../db/diary.model');
 
 const getDiaryByDay = async (req, res, next) => {
-  // const { _id } = req.user;
-  const  _id  = req.user?._id || '639ddf7b4ea006598f06725c';
+  const { _id } = req.user;
   const { day } = req.params;
 
   const diaryByDay = await Diary.find({owner: _id, date: day}).populate(
@@ -19,17 +18,20 @@ const getDiaryByDay = async (req, res, next) => {
 };
 
 const addDiaryNote = async (req, res, next) => {
-   // const { _id } = req.user;
-  const  _id  = req.user?._id || '639ddf7b4ea006598f06725c';
+  const { _id } = req.user;
   const { day } = req.params;
-  const newDiaryNote = await Diary.create({ owner: _id, date: day, ...req.body });
+  const { id: product, weight} = req.body;
+
+  const newDiaryNote = await Diary.create({ owner: _id, date: day, product, weight }).populate(
+    "product",
+    "_id categories title calories"
+  );
 
   return res.status(201).json(newDiaryNote);
  };
 
 const deleteDiaryNoteByProdId = async (req, res, next) => {
-  // const { _id } = req.user;
-  const  _id  = req.user?._id || '639ddf7b4ea006598f06725c';
+  const { _id } = req.user;
   const { day, prodId } = req.params;
 
   const diaryNote = await Diary.findOneAndRemove({owner: _id, date: day, product: prodId}).populate(

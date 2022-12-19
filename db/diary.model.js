@@ -8,10 +8,12 @@ const diarySchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
+    required: [true, 'Owner id is required'],
   },
   product:{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'product'
+    ref: 'product',
+    required: [true, 'Product id is required'],
   },
   weight: {
     type: Number,

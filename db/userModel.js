@@ -29,13 +29,13 @@ const userSchema = new mongoose.Schema({
   age: {
     type: Number,
   },
-  current_weight: {
+  currentWeight: {
     type: Number,
   },
-  desire_weight: {
+  desireWeight: {
     type: Number,
   },
-  blood_type: {
+  bloodType: {
     type: Number,
   },
 });
