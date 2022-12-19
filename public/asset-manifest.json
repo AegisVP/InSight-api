@@ -1,15 +1,29 @@
 {
   "files": {
     "main.css": "/InSight-web/static/css/main.655031b4.css",
-    "main.js": "/InSight-web/static/js/main.1ee8afbb.js",
+    "main.js": "/InSight-web/static/js/main.f38a1458.js",
+    "static/js/51.0d27ee41.chunk.js": "/InSight-web/static/js/51.0d27ee41.chunk.js",
+    "static/js/984.177c1f02.chunk.js": "/InSight-web/static/js/984.177c1f02.chunk.js",
     "static/media/verdana-bold.ttf": "/InSight-web/static/media/verdana-bold.c4e1b53d02ea7938d5bc.ttf",
+    "static/media/apple.webp": "/InSight-web/static/media/apple.5f82ccf849d6703b74a6.webp",
+    "static/media/watermelon.webp": "/InSight-web/static/media/watermelon.f0299c91849e14e8e0ab.webp",
     "static/media/verdana.ttf": "/InSight-web/static/media/verdana.5b0da4fe5677451d28a7.ttf",
+    "static/media/orange.webp": "/InSight-web/static/media/orange.e2acac0af3fb7320a3e8.webp",
+    "static/media/kivi.webp": "/InSight-web/static/media/kivi.e66c0405d5557951a508.webp",
+    "static/media/greyp.webp": "/InSight-web/static/media/greyp.e9833834b23dbc0d031c.webp",
+    "static/media/lime.webp": "/InSight-web/static/media/lime.663677fef7f20a3873ab.webp",
+    "static/media/mandarin.webp": "/InSight-web/static/media/mandarin.748b16ef6d7098677b60.webp",
+    "static/media/lemon.webp": "/InSight-web/static/media/lemon.e2660d06d5b4a1490561.webp",
+    "static/media/banan.webp": "/InSight-web/static/media/banan.d5a855bbeb842b24a131.webp",
+    "static/media/avokado.webp": "/InSight-web/static/media/avokado.f1b9b1b26f326580dce0.webp",
     "index.html": "/InSight-web/index.html",
     "main.655031b4.css.map": "/InSight-web/static/css/main.655031b4.css.map",
-    "main.1ee8afbb.js.map": "/InSight-web/static/js/main.1ee8afbb.js.map"
+    "main.f38a1458.js.map": "/InSight-web/static/js/main.f38a1458.js.map",
+    "51.0d27ee41.chunk.js.map": "/InSight-web/static/js/51.0d27ee41.chunk.js.map",
+    "984.177c1f02.chunk.js.map": "/InSight-web/static/js/984.177c1f02.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.655031b4.css",
-    "static/js/main.1ee8afbb.js"
+    "static/js/main.f38a1458.js"
   ]
 }
