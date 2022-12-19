@@ -6,7 +6,7 @@ const { authWithGoogle } = require('../services/users');
 const googleAuth = (req, res) => {
   const stringifiedParams = queryString.stringify({
     client_id: GOOGLE_CLIENT_ID,
-    redirect_uri: `${BACKEND_URL}/auth/google-redirect`,
+    redirect_uri: `${BACKEND_URL}/user/google-redirect`,
     scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'].join(
       ' '
     ),
@@ -25,7 +25,6 @@ const googleRedirect = async (req, res) => {
   const urlParams = queryString.parse(urlObj.search);
 
   if (!urlParams) return res.json({ message: 'error 2' });
-  console.log({ urlParams });
 
   const code = urlParams.code;
   const tokenData = (
@@ -35,7 +34,7 @@ const googleRedirect = async (req, res) => {
       data: {
         client_id: GOOGLE_CLIENT_ID,
         client_secret: GOOGLE_CLIENT_SECRET,
-        redirect_uri: `${BACKEND_URL}/auth/google-redirect`,
+        redirect_uri: `${BACKEND_URL}/user/google-redirect`,
         grant_type: 'authorization_code',
         code,
       },
@@ -43,7 +42,6 @@ const googleRedirect = async (req, res) => {
   ).data;
 
   if (!tokenData) return res.json({ message: 'error 3' });
-  console.log({ tokenData });
 
   const userData = (
     await axios({
