@@ -25,16 +25,15 @@ const addDiaryNote = async (req, res, next) => {
   };
   
   const [diaryNote] = await getDiary({ owner: _id, date: day, product: productId });
-  
-  if (diaryNote) {
-    const newNote = await updateDiaryNote(diaryNote._id, {weight: (diaryNote.weight + weight)});
-    return res.status(201).json( createProdObj({product: newNote.product, weight: newNote.weight}));
+
+  if (!diaryNote) {
+    const newNote = await createDiaryNote({ owner: _id, date: day, product: productId, weight });
+    const [newDiaryNote] = await getDiary({ _id: newNote._id})
+    return res.status(201).json(createProdObj(newDiaryNote));
   }
 
-  const newNote = await createDiaryNote({ owner: _id, date: day, product: productId, weight });
-  const newDiaryNote = await getDiary({ _id: newNote._id})
-
-  return res.status(201).json(createProdObj({product: newDiaryNote.product, weight: newDiaryNote.weight}));
+  const newNote = await updateDiaryNote(diaryNote._id, {weight: (diaryNote.weight + weight)});
+  return res.status(200).json(createProdObj(newNote));
  };
 
 const deleteDiaryNoteByProdId = async (req, res, next) => {
