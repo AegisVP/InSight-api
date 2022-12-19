@@ -7,4 +7,4 @@ const { getDiet, getUserDiet } = require("../controllers/dietController");
 router.get("/", dietValidationMiddleware, tryCatchWrapper(getDiet));
 router.get("/:user_id", authMiddleware, dietValidationMiddleware, tryCatchWrapper(getUserDiet));
 
-module.exports = {dietRouter: router};
+module.exports = router;
