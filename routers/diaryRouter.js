@@ -8,4 +8,4 @@ router.get("/:day", authMiddleware, diaryDateValidationMiddleware, tryCatchWrapp
 router.post("/:day", authMiddleware, diaryDateValidationMiddleware, diaryBodyValidationMiddleware, tryCatchWrapper(addDiaryNote));
 router.delete("/:day/:prodId", authMiddleware, diaryDateValidationMiddleware, tryCatchWrapper(deleteDiaryNoteByProdId));
 
-module.exports = {diaryRouter: router};
+module.exports = router;
