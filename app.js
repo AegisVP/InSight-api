@@ -20,13 +20,9 @@ app.use('/users', usersRouter);
 
 app.use('/InSight-web', express.static('./public'));
 
-app.get('/', function (req, res) {
-  res.send('API up');
-});
+app.get('/', (_, res) => res.redirect('/InSight-web'));
 
-app.use((req, res) => {
-  res.status(404).json({ message: 'Not found' });
-});
+app.use((_, res) => res.status(404).json({ message: 'Not found' }));
 
 app.use((err, req, res, next) => {
   console.log('App crashed!!!: ', err.message);
@@ -37,7 +33,7 @@ app.use((err, req, res, next) => {
     });
   }
 
-  res.status(500).json({ message: 'Internal server error' });
+  return res.status(500).json({ message: 'Internal server error' });
 });
 
 module.exports = { app };
