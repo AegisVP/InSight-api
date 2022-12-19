@@ -29,7 +29,7 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log('App crashed!!!: ', err.message);
+  console.log('App crashed!!!: ', err.message, err.stack);
 
   if (err.status) {
     return res.status(err.status).json({
