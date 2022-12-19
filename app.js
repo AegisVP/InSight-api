@@ -14,9 +14,8 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve);
 app.use('/api-docs', swaggerUi.setup(swaggerDocument), swaggerUi.serve);
 
-app.use('/auth', authRouter);
 app.use('/users', userRouter);
-app.use("/diary", diaryRouter);
+app.use('/diary', diaryRouter);
 
 app.use('/InSight-web', frontendRouter);
 
