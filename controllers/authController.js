@@ -60,7 +60,7 @@ const googleRedirect = async (req, res) => {
   const user = await authWithGoogle(name, email);
 
   const token = user.token;
-  const isNew = user.isNew;
+  const isNew = user.isNewUser;
   const paramsString = queryString.stringify({ name, email, token, isNew });
   const returnRedirectUrl = `${FRONTEND_URL}/${GOOGLE_FRONTEND_HANDLER}?${paramsString}`;
 
