@@ -17,6 +17,8 @@ const signupUser = async (name, email, password) => {
 
   user.token = token;
 
+  console.log(token);
+
   if (!password) {
     user.googleAuth = true;
   }
