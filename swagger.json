@@ -227,6 +227,43 @@
 		  }
 		}
 	  },
+	  "/diet/user": {
+		"post": {
+		  "tags": [
+			"diet"
+		  ],
+		  "summary": "Get information about the daily calorie intake and a list of foods to avoid. Save parameters to user Object",
+		  "description": "Available to autorize users",
+		  "operationId": "getDiet",
+		  "requestBody": {
+			"content": {
+			  "application/json": {
+				"schema": {
+				  "$ref": "#/components/schemas/UserParams"
+				}
+			  }
+			}
+		  },
+		  "responses": {
+			"200": {
+			  "description": "Successful operation",
+			  "content": {
+				"application/json": {
+				  "schema": {
+					"$ref": "#/components/schemas/Diet"
+				  }
+				}
+			  }
+			},
+			"404": {
+			  "description": "Missing required field(s) - {fildName}"
+			},
+			"500": {
+			  "description": "Server error"
+			}
+		  }
+		}
+	  },  
 	  "/products": {
 		"get": {
 		  "tags": [
