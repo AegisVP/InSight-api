@@ -21,7 +21,7 @@ const getUserDiet = async (req, res, next) => {
   }
   
   const diet = await dietCalculator(req.body)
-  return res.status(200).json({diet});
+  return res.status(200).json(diet);
 };
 
 module.exports = {
