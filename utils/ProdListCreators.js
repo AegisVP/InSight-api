@@ -6,12 +6,13 @@ const createProdArr = ( diary ) => {
   return prodArr;
 };
 
-const createProdObj=({product: { _id, categories, weight: prodWeight, calories, title}, weight})=> {
+const createProdObj=({product, weight})=> {
+const { _id, categories, weight: prodWeight, calories, title} = product
   const prodObj = {
     _id,
     categories,
     weight,
-    calories: (weight*(calories/prodWeight)),
+    calories: Math.round(weight*(calories/prodWeight)),
     title: {
       "ru": title.ru,
       "ua": title.ua
