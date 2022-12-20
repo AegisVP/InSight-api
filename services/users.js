@@ -17,11 +17,6 @@ const signupUser = async (name, email, password) => {
 
   user.token = token;
 
-  console.log(token);
-
-  if (!password) {
-    user.googleAuth = true;
-  }
   await user.save();
   return { name: user.name, email: user.email, token };
 };
@@ -33,10 +28,7 @@ const loginUser = async (email, password) => {
   }
 
   if (user.googleAuth) {
-    const token = createToken(user);
-    await User.findByIdAndUpdate(user._id, { token }, { runValidators: true });
-
-    return token;
+    return false;
   }
 
   if (!(await bcrypt.compare(password, user.password))) {
@@ -57,8 +49,17 @@ const loginUser = async (email, password) => {
 const authWithGoogle = async (name, email) => {
   const user = await User.findOne({ email });
   if (!user) {
-    const user = await signupUser(name, email);
-    return user;
+    const user = new User({
+      name,
+      email,
+    });
+
+    const token = createToken(user);
+
+    user.token = token;
+
+    await user.save();
+    return { name: user.name, email: user.email, token };
   } else if (user.googleAuth) {
     const token = createToken(user);
     const newUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true });
