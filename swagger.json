@@ -1,278 +1,280 @@
 {
-	"openapi": "3.0.3",
-	"info": {
-	  "title": "Slim Mom`s - OpenAPI 3.0",
-	  "version": "1.0.0",
-	  "description": "This is a description of the InSight team's Slim Mom's project server, based on the OpenAPI 3.0 specification.\n\nThis server allows you to get information about the daily calorie intake and a list of foods to avoid based on physical data and blood type.\n\nAlso, the ability to save, receive and edit the list of foods eaten for a specific day is implemented.\nThe information is tied to a specific user (a token is used).\n\nImplemented registration, user login/logout\n\nSome useful links:\n- [The Slim Mom's repository](https://github.com/AegisVP/InSight-web)\n- [The source API definition for the Slim Mom's](https://github.com/AegisVP/InSight-api/blob/main/swagger.json)"
-	},
-	"servers": [
-	  {
-		"url": "https://insight-txsh.onrender.com"
-	  }
-	],
-	"tags": [
-	  {
-		"name": "user",
-		"description": "Operations about user"
-	  },
-	  {
-		"name": "diet",
-		"description": "Get information about the daily calorie intake and a list of foods to avoid"
-	  },
-	  {
-		"name": "products",
-		"description": "List of all products"
-	  },
-	  {
-		"name": "diary",
-		"description": "Daily consumption diary"
-	  }
-	],
-	"paths": {
-	  "/user": {
-		"post": {
-		  "tags": [
-			"user"
-		  ],
-		  "summary": "Create user",
-		  "description": "Create new user",
-		  "operationId": "createUser",
-		  "requestBody": {
-			"required": true,
-			"content": {
-			  "application/json": {
-				"schema": {
-				  "$ref": "#/components/schemas/UserCreateRequest"
-				}
-			  }
-			}
-		  },
-		  "responses": {
-			"201": {
-			  "description": "User created",
-			  "content": {
-				"application/json": {
-				  "schema": {
-					"$ref": "#/components/schemas/UserAuthResponse"
-				  }
-				}
-			  }
-			},
-			"400": {
-			  "description": "User creation error"
-			},
-			"404": {
-			  "description": "User already exist"
-			},
-			"500": {
-			  "description": "Server error"
-			}
-		  }
-		}
-	  },
-	  "/user/login": {
-		"post": {
-		  "tags": [
-			"user"
-		  ],
-		  "summary": "Logs user into the system",
-		  "description": "Logs user into the system",
-		  "operationId": "loginUser",
-		  "requestBody": {
-			"required": true,
-			"content": {
-			  "application/json": {
-				"schema": {
-				  "$ref": "#/components/schemas/UserLoginRequest"
-				}
-			  }
-			}
-		  },
-		  "responses": {
-			"200": {
-			  "description": "successful operation",
-			  "content": {
-				"application/json": {
-				  "schema": {
-					"$ref": "#/components/schemas/UserAuthResponse"
-				  }
-				}
-			  }
-			},
-			"400": {
-			  "description": "Invalid email/password supplied"
-			},
-			"404": {
-			  "description": "User not found"
-			},
-			"500": {
-			  "description": "Server error"
-			}
-		  }
-		}
-	  },
-	  "/user/logout": {
-		"patch": {
-		  "tags": [
-			"user"
-		  ],
-		  "summary": "Logs out current logged in user session",
-		  "description": "This can only be done by the logged in user.",
-		  "operationId": "logoutUser",
-		  "parameters": [
-			{
-			  "name": "Authorization",
-			  "in": "header",
-			  "description": "'Bearer [token]' where [token] is the token issued to the current user",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			}
-		  ],
-		  "responses": {
-			"204": {
-			  "description": "Successful operation"
-			},
-			"401": {
-			  "description": "Missing header with authorization token"
-			}
-		  }
-		}
-	  },
-	  "/user/current": {
-		"get": {
-		  "tags": [
-			"user"
-		  ],
-		  "summary": "Get user by user id",
-		  "description": "Get user by user id",
-		  "operationId": "getUserById",
-		  "parameters": [
-			{
-			  "name": "Authorization",
-			  "in": "header",
-			  "description": "'Bearer [token]' where [token] is the token issued to the current user",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			}
-		  ],
-		  "responses": {
-			"200": {
-			  "description": "successful operation",
-			  "content": {
-				"application/json": {
-				  "schema": {
-					"$ref": "#/components/schemas/CurrentUser"
-				  }
-				}
-			  }
-			},
-			"400": {
-			  "description": "Invalid user id supplied"
-			},
-			"401": {
-			  "description": "Missing header with authorization token"
-			},
-			"404": {
-			  "description": "User not found"
-			},
-			"500": {
-			  "description": "Server error"
-			}
-		  }
-		}
-	  },
-	  "/diet": {
-		"post": {
-		  "tags": [
-			"diet"
-		  ],
-		  "summary": "Get information about the daily calorie intake and a list of foods to avoid",
-		  "description": "Available to all users",
-		  "operationId": "getDiet",
-		  "requestBody": {
-			"content": {
-			  "application/json": {
-				"schema": {
-				  "$ref": "#/components/schemas/UserParams"
-				}
-			  }
-			}
-		  },
-		  "responses": {
-			"200": {
-			  "description": "Successful operation",
-			  "content": {
-				"application/json": {
-				  "schema": {
-					"$ref": "#/components/schemas/Diet"
-				  }
-				}
-			  }
-			},
-			"404": {
-			  "description": "Missing required field(s) - {fildName}"
-			},
-			"500": {
-			  "description": "Server error"
-			}
-		  }
-		}
-	  },
-	  "/diet/user": {
-		"post": {
-		  "tags": [
-			"diet"
-		  ],
-		  "summary": "Get information about the daily calorie intake and a list of foods to avoid. Save parameters to user Object",
-		  "description": "Available to authorize users",
-		  "operationId": "getUserDiet",
-		  "parameters": [
-			{
-			  "name": "Authorization",
-			  "in": "header",
-			  "description": "'Bearer [token]' where [token] is the token issued to the current user",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			}
-		  ],
-		  "requestBody": {
-			"content": {
-			  "application/json": {
-				"schema": {
-				  "$ref": "#/components/schemas/UserParams"
-				}
-			  }
-			}
-		  },
-		  "responses": {
-			"200": {
-			  "description": "Successful operation",
-			  "content": {
-				"application/json": {
-				  "schema": {
-					"$ref": "#/components/schemas/Diet"
-				  }
-				}
-			  }
-			},
-			"401": {
-			  "description": "No authorized"
-			},
-			"500": {
-			  "description": "Server error"
-			}
-		  }
-		}
-	  },
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Slim Mom`s - OpenAPI 3.0",
+    "version": "1.0.0",
+    "description": "This is a description of the InSight team's Slim Mom's project server, based on the OpenAPI 3.0 specification.\n\nThis server allows you to get information about the daily calorie intake and a list of foods to avoid based on physical data and blood type.\n\nAlso, the ability to save, receive and edit the list of foods eaten for a specific day is implemented.\nThe information is tied to a specific user (a token is used).\n\nImplemented registration, user login/logout\n\nSome useful links:\n- [The Slim Mom's repository](https://github.com/AegisVP/InSight-web)\n- [The source API definition for the Slim Mom's](https://github.com/AegisVP/InSight-api/blob/main/swagger.json)"
+  },
+  "servers": [
+    {
+      "url": "https://insight-txsh.onrender.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user"
+    },
+    {
+      "name": "diet",
+      "description": "Get information about the daily calorie intake and a list of foods to avoid"
+    },
+    {
+      "name": "products",
+      "description": "List of all products"
+    },
+    {
+      "name": "diary",
+      "description": "Daily consumption diary"
+    }
+  ],
+  "paths": {
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "Create new user",
+        "operationId": "createUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAuthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User creation error"
+          },
+          "404": {
+            "description": "User already exist"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "Logs user into the system",
+        "operationId": "loginUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserAuthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email/password supplied"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "patch": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "logoutUser",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "'Bearer [token]' where [token] is the token issued to the current user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful operation"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          }
+        }
+      }
+    },
+    "/user/current": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by user id",
+        "description": "Get user by user id",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "'Bearer [token]' where [token] is the token issued to the current user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUser"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid user id supplied"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/diet": {
+      "post": {
+        "tags": [
+          "diet"
+        ],
+        "summary": "Get information about the daily calorie intake and a list of foods to avoid",
+        "description": "Available to all users",
+        "operationId": "getDiet",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Diet"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Missing required field(s) - {fildName}"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/diet/user": {
+      "post": {
+        "tags": [
+          "diet"
+        ],
+        "summary": "Get information about the daily calorie intake and a list of foods to avoid. Save parameters to user Object",
+        "description": "Available to authorize users",
+        "operationId": "getUserDiet",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "'Bearer [token]' where [token] is the token issued to the current user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Diet"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No authorized"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
-        "tags": ["products"],
+        "tags": [
+          "products"
+        ],
         "summary": "Get information about specific food by title",
         "description": "",
         "operationId": "getProductByTitle",
@@ -295,7 +297,6 @@
               "type": "string"
             }
           }
-
         ],
         "responses": {
           "200": {
@@ -325,13 +326,15 @@
     },
     "/products/{prodId}": {
       "get": {
-        "tags": ["products"],
+        "tags": [
+          "products"
+        ],
         "summary": "Get information about specific food by id",
         "description": "",
         "operationId": "getProductById",
         "parameters": [
           {
-            "name": "product id",
+            "name": "prodId",
             "in": "path",
             "description": "Id of product that needs to be fetched",
             "required": true,
@@ -348,7 +351,6 @@
               "type": "string"
             }
           }
-
         ],
         "responses": {
           "200": {
@@ -376,368 +378,368 @@
         }
       }
     },
-	  "/diary/{day}": {
-		"get": {
-		  "tags": [
-			"diary"
-		  ],
-		  "summary": "Get list of foods eaten for a specific day",
-		  "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'",
-		  "operationId": "getDiaryByDate",
-		  "parameters": [
-			{
-			  "name": "day",
-			  "in": "path",
-			  "description": "Day that needs to be fetched",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			},
-			{
-			  "name": "Authorization",
-			  "in": "header",
-			  "description": "'Bearer [token]' where [token] is the token issued to the current user",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			}
-		  ],
-		  "responses": {
-			"200": {
-			  "description": "successful operation",
-			  "content": {
-				"application/json": {
-				  "schema": {
-					"$ref": "#/components/schemas/DiaryGetResponse"
-				  }
-				}
-			  }
-			},
-			"400": {
-			  "description": "Invalid date supplied"
-			},
-			"401": {
-			  "description": "Missing header with authorization token"
-			},
-			"404": {
-			  "description": "Product list not found"
-			},
-			"500": {
-			  "description": "Server error"
-			}
-		  }
-		},
-		"post": {
-		  "tags": [
-			"diary"
-		  ],
-		  "summary": "Create a note about the food eaten on a specific day",
-		  "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'. In response, you receive a product that was created",
-		  "operationId": "createDiaryItemByDate",
-		  "parameters": [
-			{
-			  "name": "day",
-			  "in": "path",
-			  "description": "Date that needs to be fetched",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			},
-			{
-			  "name": "Authorization",
-			  "in": "header",
-			  "description": "'Bearer [token]' where [token] is the token issued to the current user",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			}
-		  ],
-		  "requestBody": {
-			"content": {
-			  "application/json": {
-				"schema": {
-				  "$ref": "#/components/schemas/DiaryPostRequest"
-				}
-			  }
-			}
-		  },
-		  "responses": {
-			"200": {
-			  "description": "successful operation",
-			  "content": {
-				"application/json": {
-				  "schema": {
-					"$ref": "#/components/schemas/Product"
-				  }
-				}
-			  }
-			},
-			"400": {
-			  "description": "Invalid product title supplied"
-			},
-			"401": {
-			  "description": "Missing header with authorization token"
-			},
-			"404": {
-			  "description": "Product not found"
-			},
-			"500": {
-			  "description": "Server error"
-			}
-		  }
-		}
-	  },
-	  "/diary/{day}/{prodId}": {
-		"delete": {
-		  "tags": [
-			"diary"
-		  ],
-		  "summary": "Delete information about specific food by product id",
-		  "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022/5d51694802b2373622ff553b'. In response, you receive a product that was deleted",
-		  "operationId": "deleteProductById",
-		  "parameters": [
-			{
-			  "name": "day",
-			  "in": "path",
-			  "description": "Day that needs to be corrected",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			},
-			{
-			  "name": "prodId",
-			  "in": "path",
-			  "description": "Product id that needs to be deleted",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			},
-			{
-			  "name": "Authorization",
-			  "in": "header",
-			  "description": "'Bearer [token]' where [token] is the token issued to the current user",
-			  "required": true,
-			  "schema": {
-				"type": "string"
-			  }
-			}
-		  ],
-		  "responses": {
-			"200": {
-			  "description": "successful operation",
-			  "content": {
-				"application/json": {
-				  "schema": {
-					"$ref": "#/components/schemas/Product"
-				  }
-				}
-			  }
-			},
-			"400": {
-			  "description": "Invalid product title supplied"
-			},
-			"401": {
-			  "description": "Missing header with authorization token"
-			},
-			"404": {
-			  "description": "Product not found/Missing product id"
-			},
-			"500": {
-			  "description": "Server error"
-			}
-		  }
-		}
-	  }
-	},
-	"components": {
-	  "schemas": {
-		"UserCreateRequest": {
-		  "type": "object",
-		  "properties": {
-			"name": {
-			  "type": "string",
-			  "example": "Alex"
-			},
-			"email": {
-			  "type": "string",
-			  "example": "example@email.com"
-			},
-			"password": {
-			  "type": "string",
-			  "example": "12345"
-			}
-		  }
-		},
-		"UserLoginRequest": {
-		  "type": "object",
-		  "properties": {
-			"email": {
-			  "type": "string",
-			  "example": "example@email.com"
-			},
-			"password": {
-			  "type": "string",
-			  "example": "12345"
-			}
-		  }
-		},
-		"UserAuthResponse": {
-		  "type": "object",
-		  "properties": {
-			"email": {
-			  "type": "string",
-			  "example": "example@email.com"
-			},
-			"name": {
-			  "type": "string",
-			  "example": "Alex"
-			},
-			"token": {
-			  "type": "string",
-			  "example": "12345"
-			}
-		  }
-		},
-		"CurrentUser": {
-		  "type": "object",
-		  "properties": {
-			"name": {
-			  "type": "string",
-			  "example": "Alex"
-			},
-			"email": {
-			  "type": "string",
-			  "example": "example@email.com"
-			},
-			"params": {
-			  "type": "object",
-			  "properties": {
-				"height": {
-				  "type": "number",
-				  "example": 162
-				},
-				"age": {
-				  "type": "number",
-				  "example": 22
-				},
-				"currentWeight": {
-				  "type": "number",
-				  "example": 67
-				},
-				"desireWeight": {
-				  "type": "number",
-				  "example": 55
-				},
-				"bloodType": {
-				  "type": "number",
-				  "example": 2
-				}
-			  }
-			}
-		  }
-		},
-		"UserParams": {
-		  "type": "object",
-		  "properties": {
-			"height": {
-			  "type": "number",
-			  "example": 162
-			},
-			"age": {
-			  "type": "number",
-			  "example": 22
-			},
-			"currentWeight": {
-			  "type": "number",
-			  "example": 67
-			},
-			"desireWeight": {
-			  "type": "number",
-			  "example": 55
-			},
-			"bloodType": {
-			  "type": "number",
-			  "example": 2
-			}
-		  }
-		},
-		"Product": {
-		  "type": "object",
-		  "properties": {
-			"_id": {
-			  "type": "string",
-			  "example": "5d51694802b2373622ff553b"
-			},
-			"categories": {
-			  "type": "array",
-			  "items": {
-				"type": "string",
-				"example": "яйца"
-			  }
-			},
-			"weight": {
-			  "type": "number",
-			  "example": 100
-			},
-			"title": {
-			  "type": "object",
-			  "properties": {
-				"ru": {
-				  "type": "string",
-				  "example": "Яйцо куриное (желток сухой)"
-				},
-				"ua": {
-				  "type": "string",
-				  "example": "Яйце куряче (жовток сухий)"
-				}
-			  }
-			},
-			"calories": {
-			  "type": "number",
-			  "example": 623
-			}
-		  }
-		},
-		"DiaryPostRequest": {
-		  "type": "object",
-		  "properties": {
-			"id": {
-			  "type": "string",
-			  "example": "synnt248-9fh42gub35y0f60"
-			},
-			"weight": {
-			  "type": "number",
-			  "example": 65
-			}
-		  }
-		},
-		"DiaryGetResponse": {
-		  "type": "array",
-		  "items": {
-			"$ref": "#/components/schemas/Product"
-		  }
-		},
-		"Diet": {
-		  "type": "object",
-		  "properties": {
-			"dailyIntake": {
-			  "type": "number",
-			  "example": "2800"
-			},
-			"stopProd": {
-			  "type": "array",
-			  "items": {
-				"$ref": "#/components/schemas/Product"
-			  }
-			}
-		  }
-		}
-	  }
-	}
+    "/diary/{day}": {
+      "get": {
+        "tags": [
+          "diary"
+        ],
+        "summary": "Get list of foods eaten for a specific day",
+        "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'",
+        "operationId": "getDiaryByDate",
+        "parameters": [
+          {
+            "name": "day",
+            "in": "path",
+            "description": "Day that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "'Bearer [token]' where [token] is the token issued to the current user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiaryGetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid date supplied"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Product list not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "diary"
+        ],
+        "summary": "Create a note about the food eaten on a specific day",
+        "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'. In response, you receive a product that was created",
+        "operationId": "createDiaryItemByDate",
+        "parameters": [
+          {
+            "name": "day",
+            "in": "path",
+            "description": "Date that needs to be fetched",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "'Bearer [token]' where [token] is the token issued to the current user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiaryPostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid product title supplied"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Product not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/diary/{day}/{prodId}": {
+      "delete": {
+        "tags": [
+          "diary"
+        ],
+        "summary": "Delete information about specific food by product id",
+        "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022/5d51694802b2373622ff553b'. In response, you receive a product that was deleted",
+        "operationId": "deleteProductById",
+        "parameters": [
+          {
+            "name": "day",
+            "in": "path",
+            "description": "Day that needs to be corrected",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "prodId",
+            "in": "path",
+            "description": "Product id that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "'Bearer [token]' where [token] is the token issued to the current user",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid product title supplied"
+          },
+          "401": {
+            "description": "Missing header with authorization token"
+          },
+          "404": {
+            "description": "Product not found/Missing product id"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserCreateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Alex"
+          },
+          "email": {
+            "type": "string",
+            "example": "example@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "12345"
+          }
+        }
+      },
+      "UserLoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "example@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "12345"
+          }
+        }
+      },
+      "UserAuthResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "example@email.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "Alex"
+          },
+          "token": {
+            "type": "string",
+            "example": "12345"
+          }
+        }
+      },
+      "CurrentUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Alex"
+          },
+          "email": {
+            "type": "string",
+            "example": "example@email.com"
+          },
+          "params": {
+            "type": "object",
+            "properties": {
+              "height": {
+                "type": "number",
+                "example": 162
+              },
+              "age": {
+                "type": "number",
+                "example": 22
+              },
+              "currentWeight": {
+                "type": "number",
+                "example": 67
+              },
+              "desireWeight": {
+                "type": "number",
+                "example": 55
+              },
+              "bloodType": {
+                "type": "number",
+                "example": 2
+              }
+            }
+          }
+        }
+      },
+      "UserParams": {
+        "type": "object",
+        "properties": {
+          "height": {
+            "type": "number",
+            "example": 162
+          },
+          "age": {
+            "type": "number",
+            "example": 22
+          },
+          "currentWeight": {
+            "type": "number",
+            "example": 67
+          },
+          "desireWeight": {
+            "type": "number",
+            "example": 55
+          },
+          "bloodType": {
+            "type": "number",
+            "example": 2
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "5d51694802b2373622ff553b"
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "яйца"
+            }
+          },
+          "weight": {
+            "type": "number",
+            "example": 100
+          },
+          "title": {
+            "type": "object",
+            "properties": {
+              "ru": {
+                "type": "string",
+                "example": "Яйцо куриное (желток сухой)"
+              },
+              "ua": {
+                "type": "string",
+                "example": "Яйце куряче (жовток сухий)"
+              }
+            }
+          },
+          "calories": {
+            "type": "number",
+            "example": 623
+          }
+        }
+      },
+      "DiaryPostRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "synnt248-9fh42gub35y0f60"
+          },
+          "weight": {
+            "type": "number",
+            "example": 65
+          }
+        }
+      },
+      "DiaryGetResponse": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Product"
+        }
+      },
+      "Diet": {
+        "type": "object",
+        "properties": {
+          "dailyIntake": {
+            "type": "number",
+            "example": "2800"
+          },
+          "stopProd": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          }
+        }
+      }
+    }
   }
+}
