@@ -1,6 +1,6 @@
 const { User } = require('../db/userModel');
 const { dietCalculator } = require('../services/dietCalculator');
-const { createAuthError } = require('../utils/errorCreators');
+const { createNotFoundHttpError } = require('../utils/errorCreators');
 
 const getDiet = async (req, res, next) => {
   const diet = await dietCalculator(req.body);
@@ -12,7 +12,7 @@ const getUserDiet = async (req, res, next) => {
   const user = await User.findByIdAndUpdate(_id, { ...req.body }, { new: true });
 
   if (!user) {
-    return next(createAuthError());
+    return next(createNotFoundHttpError());
   }
 
   const diet = await dietCalculator(req.body);
