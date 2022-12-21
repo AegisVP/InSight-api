@@ -1,14 +1,10 @@
 const { Product } = require('../db/product.model');
 const { createProdObj } = require('../utils/ProdListCreators');
 
-async function getStopProduct(bloodType){
+async function getStopProduct(bloodType) {
+  return (await Product.find())
+    .filter(item => item.groupBloodNotAllowed[bloodType])
+    .map(item => createProdObj({ product: item, weight: item.weight || 100 }));
+}
 
-  const prod = await Product.find();
-
-  const prodFilteredByBloodType = prod.filter(item => item.groupBloodNotAllowed[bloodType]);
-  const stopProd = prodFilteredByBloodType.map(item=> createProdObj({product: item, weight: 100}));
-   
-  return stopProd;
-};
-
-module.exports = {getStopProduct};
+module.exports = { getStopProduct };

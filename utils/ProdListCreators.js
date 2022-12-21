@@ -1,25 +1,22 @@
-const createProdArr = ( diary ) => { 
-  const prodArr = diary.map(
-    
-    
-    createProdObj);
+const createProdArr = diary => {
+  const prodArr = diary.map(createProdObj);
   return prodArr;
 };
 
-const createProdObj=({product, weight})=> {
-const { _id, categories, weight: prodWeight, calories, title} = product
+const createProdObj = ({ product, weight }) => {
+  const { _id, categories, weight: prodWeight, calories, title } = product;
   const prodObj = {
     _id,
     categories,
     weight,
-    calories: Math.round(weight*(calories/prodWeight)),
+    calories: Math.round(weight * (calories / prodWeight)),
     title: {
-      "ru": title.ru,
-      "ua": title.ua
+      ru: title.ru,
+      ua: title.ua,
     },
   };
 
-return prodObj;
+  return prodObj;
 };
 
 module.exports = { createProdArr, createProdObj };

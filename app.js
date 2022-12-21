@@ -25,14 +25,12 @@ app.get('/', (_, res) => res.redirect('/InSight-web'));
 app.use((_, res) => res.status(404).json({ message: 'Not found' }));
 
 app.use((err, req, res, next) => {
-  console.log('App crashed!!!: ', err.message, err.stack);
-
   if (err.status) {
-    return res.status(err.status).json({
-      message: err.message,
-    });
+    console.log(err.status, '-', err.message);
+    return res.status(err.status).json({ message: err.message });
   }
 
+  console.error('Unhandled error:', err.message, '| Stack:', err.stack);
   return res.status(500).json({ message: 'Internal server error' });
 });
 

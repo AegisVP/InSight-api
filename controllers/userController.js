@@ -23,7 +23,7 @@ const loginController = async (req, res) => {
 const logoutController = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: null }, { runValidators: true });
-  res.status(200).json({ status: 'Success logout' });
+  res.status(204);
 };
 
 const currentUserController = async (req, res) => {
