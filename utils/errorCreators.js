@@ -20,7 +20,7 @@ const createNotFoundHttpError = message => {
 
 const createEmailExistError = message => {
   const err = new Error();
-  err.message = message || 'User already exist';
+  err.message = message || 'User already exists';
   err.status = 409;
   return err;
 };
@@ -41,7 +41,7 @@ const createCustomError = (status, message) => {
 
 const signupError = message => {
   const err = new Error();
-  err.message = message || 'Email is use';
+  err.message = message || 'Email is already used';
   err.status = 400;
   return err;
 };
