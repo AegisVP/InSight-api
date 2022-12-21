@@ -35,17 +35,12 @@
 			"user"
 		  ],
 		  "summary": "Create user",
-		  "description": "Create new user. Property 'params' is NOT required. On a request without a params property, the response properties 'params' and 'diet' are empty objects",
+		  "description": "Create new user",
 		  "operationId": "createUser",
 		  "requestBody": {
 			"required": true,
 			"content": {
 			  "application/json": {
-				"schema": {
-				  "$ref": "#/components/schemas/UserCreateRequest"
-				}
-			  },
-			  "application/x-www-form-urlencoded": {
 				"schema": {
 				  "$ref": "#/components/schemas/UserCreateRequest"
 				}
@@ -233,8 +228,19 @@
 			"diet"
 		  ],
 		  "summary": "Get information about the daily calorie intake and a list of foods to avoid. Save parameters to user Object",
-		  "description": "Available to autorize users",
-		  "operationId": "getDiet",
+		  "description": "Available to authorize users",
+		  "operationId": "getDietUser",
+		  "parameters": [
+			{
+			  "name": "Authorization",
+			  "in": "header",
+			  "description": "The token issued to the current user",
+			  "required": true,
+			  "schema": {
+				"type": "string"
+			  }
+			}
+		  ],
 		  "requestBody": {
 			"content": {
 			  "application/json": {
@@ -255,8 +261,8 @@
 				}
 			  }
 			},
-			"404": {
-			  "description": "Missing required field(s) - {fildName}"
+			"401": {
+			  "description": "No authorized"
 			},
 			"500": {
 			  "description": "Server error"
@@ -501,31 +507,6 @@
 			"password": {
 			  "type": "string",
 			  "example": "12345"
-			},
-			"params": {
-			  "type": "object",
-			  "properties": {
-				"height": {
-				  "type": "number",
-				  "example": 162
-				},
-				"age": {
-				  "type": "number",
-				  "example": 22
-				},
-				"currentWeight": {
-				  "type": "number",
-				  "example": 67
-				},
-				"desireWeight": {
-				  "type": "number",
-				  "example": 55
-				},
-				"bloodType": {
-				  "type": "number",
-				  "example": 2
-				}
-			  }
 			}
 		  },
 		  "xml": {
