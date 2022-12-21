@@ -3,7 +3,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
-const { userRouter, frontendRouter, dietRouter, diaryRouter } = require('./routers');
+const { userRouter, frontendRouter, dietRouter, diaryRouter, productsRouter } = require('./routers');
 
 const app = express();
 
@@ -17,6 +17,7 @@ app.use('/api-docs', swaggerUi.setup(swaggerDocument), swaggerUi.serve);
 app.use('/user', userRouter);
 app.use('/diet', dietRouter);
 app.use('/diary', diaryRouter);
+app.use('/products', productsRouter);
 
 app.use('/InSight-web', frontendRouter);
 

@@ -1,11 +1,11 @@
 const { createNotFoundHttpError } = require('../utils/errorCreators');
-const { createProdArr, createProdObj } = require('../utils/ProdListCreators');
+const { createProdArrFromDiary, createProdObj } = require('../utils/ProdListCreators');
+const { isValidProductId } = require('../services/products');
 const {
   getDiary,
   createDiaryNote,
   removeDiaryNoteById,
   updateDiaryNote,
-  isValidProductId,
 } = require('../services/diary');
 
 const getDiaryByDay = async (req, res, next) => {
@@ -18,7 +18,7 @@ const getDiaryByDay = async (req, res, next) => {
     return next(createNotFoundHttpError('Notes not found'));
   }
 
-  return res.status(200).json(createProdArr(diaryByDay));
+  return res.status(200).json(createProdArrFromDiary(diaryByDay));
 };
 
 const addDiaryNote = async (req, res, next) => {

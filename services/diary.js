@@ -41,14 +41,4 @@ const removeDiaryNoteById = async _id => {
   }
 };
 
-const isValidProductId = async productId => {
-  try {
-    const product = await Product.findById({ _id: productId });
-
-    return !!product;
-  } catch (err) {
-    throw createServerError(err.message);
-  }
-};
-
-module.exports = { getDiary, createDiaryNote, removeDiaryNoteById, updateDiaryNote, isValidProductId, Product };
+module.exports = { getDiary, createDiaryNote, removeDiaryNoteById, updateDiaryNote, Product };

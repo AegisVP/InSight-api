@@ -275,7 +275,17 @@
               "schema": {
                 "type": "string"
               }
+            },
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "'Bearer [token]' where [token] is the token issued to the current user",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
             }
+
           ],
           "responses": {
             "200": {
@@ -290,6 +300,62 @@
             },
             "400": {
               "description": "Invalid product title supplied"
+            },
+            "401": {
+              "description": "Not authorized"
+            },
+            "404": {
+              "description": "Product not found"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        }
+      },
+      "/products/{prodId}": {
+        "get": {
+          "tags": ["products"],
+          "summary": "Get information about specific food by id",
+          "description": "",
+          "operationId": "getProductById",
+          "parameters": [
+            {
+              "name": "product id",
+              "in": "path",
+              "description": "Id of product that needs to be fetched",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "'Bearer [token]' where [token] is the token issued to the current user",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DiaryGetResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Invalid product title supplied"
+            },
+            "401": {
+              "description": "Not authorized"
             },
             "404": {
               "description": "Product not found"
