@@ -22,7 +22,10 @@ const createDiaryNote = async createParams => {
 
 const updateDiaryNote = async (_id, value) => {
   try {
-    const updatedtedNote = await Diary.findOneAndUpdate({ _id }, { ...value }, { new: true }).populate('product', '_id categories title calories weight');
+    const updatedtedNote = await Diary.findOneAndUpdate({ _id }, { ...value }, { new: true }).populate(
+      'product',
+      '_id categories title calories weight'
+    );
     return updatedtedNote;
   } catch (err) {
     throw createServerError(err.message);
@@ -38,10 +41,10 @@ const removeDiaryNoteById = async _id => {
   }
 };
 
-const isValidProductId= async (productId) => {
+const isValidProductId = async productId => {
   try {
-    const product = await Product.findById({_id: productId});
-    
+    const product = await Product.findById({ _id: productId });
+
     return !!product;
   } catch (err) {
     throw createServerError(err.message);

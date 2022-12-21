@@ -10,7 +10,7 @@ const diarySchema = new mongoose.Schema({
     ref: 'user',
     required: [true, 'Owner id is required'],
   },
-  product:{
+  product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'product',
     required: [true, 'Product id is required'],
@@ -18,7 +18,7 @@ const diarySchema = new mongoose.Schema({
   weight: {
     type: Number,
     required: [true, 'Weight of eaten Product is required'],
-  }
+  },
 });
 
 const Diary = mongoose.model('diary', diarySchema);

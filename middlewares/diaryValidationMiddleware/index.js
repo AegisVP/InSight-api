@@ -1,4 +1,4 @@
-const { diaryDateValidationMiddleware } = require("./diaryDateValidationMiddleware");
-const { diaryBodyValidationMiddleware } = require("./diaryBodyValidationMiddleware");
+const { diaryDateValidationMiddleware } = require('./diaryDateValidationMiddleware');
+const { diaryBodyValidationMiddleware } = require('./diaryBodyValidationMiddleware');
 
-module.exports = {diaryDateValidationMiddleware, diaryBodyValidationMiddleware};
+module.exports = { diaryDateValidationMiddleware, diaryBodyValidationMiddleware };

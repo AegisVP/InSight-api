@@ -13,7 +13,7 @@ function diaryBodyValidationMiddleware(req, res, next) {
   }
 
   next();
-};
+}
 
 module.exports = { diaryBodyValidationMiddleware };
 
