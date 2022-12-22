@@ -1,10 +1,9 @@
-const { Product } = require('../db/product.model');
+const products = require('../db/productsConst');
 const { createServerError } = require('../utils/errorCreators');
 
 const isValidProductId = async productId => {
   try {
-    const product = await Product.findById({ _id: productId });
-
+    const product = await products.items.filter(({_id})=>_id.toString() === productId);
     return !!product;
   } catch (err) {
     throw createServerError(err.message);
@@ -13,17 +12,17 @@ const isValidProductId = async productId => {
 
 const searchProductsByTitle = async searchQuery => {
   try {
-    const title = new RegExp(searchQuery, 'gi');
-    const products = await Product.find().or({ 'title.ua': { $regex: title } }, { 'title.ru': { $regex: title } });
-    return products;
+    const searchTitle = new RegExp(searchQuery, 'gi');
+    const productsArr = await products.items.filter(({title})=>{return title.ua.match(searchTitle) || title.ru.match(searchTitle)});
+    return productsArr;
   } catch (err) {
     throw createServerError(err.message);
   }
 }
 
-const searchProductById = async prodId => {
+const searchProductById = async productId => {
   try {
-    const product = await Product.findById(prodId);
+    const [product] = await products.items.filter(({_id})=>_id.toString() === productId);
     return product;
   } catch (err) {
     throw createServerError(err.message);
