@@ -1,6 +1,6 @@
 const { signupUser, loginUser } = require('../services/users');
 const { User } = require('../db/userModel');
-const { BACKEND_URL } = process.env;
+const { BACKEND_URL } = require('../config');
 
 const signupController = async (req, res) => {
   const { name, email, password } = req.body;
