@@ -1,9 +1,16 @@
 {
   "files": {
     "main.css": "/InSight-web/static/css/main.655031b4.css",
-    "main.js": "/InSight-web/static/js/main.f38a1458.js",
-    "static/js/51.0d27ee41.chunk.js": "/InSight-web/static/js/51.0d27ee41.chunk.js",
-    "static/js/984.177c1f02.chunk.js": "/InSight-web/static/js/984.177c1f02.chunk.js",
+    "main.js": "/InSight-web/static/js/main.c553d167.js",
+    "static/js/694.79e52cf6.chunk.js": "/InSight-web/static/js/694.79e52cf6.chunk.js",
+    "static/js/991.375c4eac.chunk.js": "/InSight-web/static/js/991.375c4eac.chunk.js",
+    "static/js/714.f38a7084.chunk.js": "/InSight-web/static/js/714.f38a7084.chunk.js",
+    "static/js/546.6093ea2d.chunk.js": "/InSight-web/static/js/546.6093ea2d.chunk.js",
+    "static/js/145.cf67a13b.chunk.js": "/InSight-web/static/js/145.cf67a13b.chunk.js",
+    "static/js/628.957b8ba2.chunk.js": "/InSight-web/static/js/628.957b8ba2.chunk.js",
+    "static/js/487.da073866.chunk.js": "/InSight-web/static/js/487.da073866.chunk.js",
+    "static/js/111.50f8e370.chunk.js": "/InSight-web/static/js/111.50f8e370.chunk.js",
+    "static/js/984.e8302dfe.chunk.js": "/InSight-web/static/js/984.e8302dfe.chunk.js",
     "static/media/verdana-bold.ttf": "/InSight-web/static/media/verdana-bold.c4e1b53d02ea7938d5bc.ttf",
     "static/media/apple.webp": "/InSight-web/static/media/apple.5f82ccf849d6703b74a6.webp",
     "static/media/watermelon.webp": "/InSight-web/static/media/watermelon.f0299c91849e14e8e0ab.webp",
@@ -18,12 +25,19 @@
     "static/media/avokado.webp": "/InSight-web/static/media/avokado.f1b9b1b26f326580dce0.webp",
     "index.html": "/InSight-web/index.html",
     "main.655031b4.css.map": "/InSight-web/static/css/main.655031b4.css.map",
-    "main.f38a1458.js.map": "/InSight-web/static/js/main.f38a1458.js.map",
-    "51.0d27ee41.chunk.js.map": "/InSight-web/static/js/51.0d27ee41.chunk.js.map",
-    "984.177c1f02.chunk.js.map": "/InSight-web/static/js/984.177c1f02.chunk.js.map"
+    "main.c553d167.js.map": "/InSight-web/static/js/main.c553d167.js.map",
+    "694.79e52cf6.chunk.js.map": "/InSight-web/static/js/694.79e52cf6.chunk.js.map",
+    "991.375c4eac.chunk.js.map": "/InSight-web/static/js/991.375c4eac.chunk.js.map",
+    "714.f38a7084.chunk.js.map": "/InSight-web/static/js/714.f38a7084.chunk.js.map",
+    "546.6093ea2d.chunk.js.map": "/InSight-web/static/js/546.6093ea2d.chunk.js.map",
+    "145.cf67a13b.chunk.js.map": "/InSight-web/static/js/145.cf67a13b.chunk.js.map",
+    "628.957b8ba2.chunk.js.map": "/InSight-web/static/js/628.957b8ba2.chunk.js.map",
+    "487.da073866.chunk.js.map": "/InSight-web/static/js/487.da073866.chunk.js.map",
+    "111.50f8e370.chunk.js.map": "/InSight-web/static/js/111.50f8e370.chunk.js.map",
+    "984.e8302dfe.chunk.js.map": "/InSight-web/static/js/984.e8302dfe.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.655031b4.css",
-    "static/js/main.f38a1458.js"
+    "static/js/main.c553d167.js"
   ]
 }

@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkslim_mom=self.webpackChunkslim_mom||[]).push([[546],{7546:function(o,e,n){n.r(e);var s=n(7834),u=n(2791),l=n(9434),t=n(4142),c=n(184);e.default=function(){var o=(0,l.I0)(),e=(0,s.a)().isLoggedIn;return(0,u.useEffect)((function(){console.log("logging out"),e&&(console.log("step 2"),o(t.TX))})),(0,c.jsx)("h1",{children:"Logout page"})}}}]);
+//# sourceMappingURL=546.6093ea2d.chunk.js.map
