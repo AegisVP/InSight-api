@@ -9,7 +9,7 @@ const getDiet = async (req, res, next) => {
 
 const getUserDiet = async (req, res, next) => {
   const { _id } = req.user;
-  const user = await User.findByIdAndUpdate(_id, { ...req.body }, { new: true });
+  const user = await User.findByIdAndUpdate(_id, { params: req.body }, { new: true });
 
   if (!user) {
     return next(createNotFoundHttpError());
