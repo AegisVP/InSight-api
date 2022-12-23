@@ -1,12 +1,14 @@
-const { signupUser, loginUser } = require('../services/users');
+const { signupUser, loginUser, refreshUserToken } = require('../services/users');
 const { User } = require('../db/userModel');
-const { BACKEND_URL } = process.env;
+const { createAuthError } = require('../utils/errorCreators');
+const jwt = require('jsonwebtoken');
+const { BACKEND_URL, JWT_SECRET } = process.env;
 
 const signupController = async (req, res) => {
   const { name, email, password } = req.body;
 
-  const user = await signupUser(name, email, password);
-  res.status(201).json(user);
+  await signupUser(name, email, password);
+  res.status(201).json({ message: 'Registration successful' });
 };
 
 const loginController = async (req, res) => {
@@ -22,7 +24,7 @@ const loginController = async (req, res) => {
 
 const logoutController = async (req, res) => {
   const { _id } = req.user;
-  await User.findByIdAndUpdate(_id, { token: null }, { runValidators: true });
+  await User.findByIdAndUpdate(_id, { token: null, refresh_token: null }, { runValidators: true });
   res.status(204);
 };
 
@@ -32,4 +34,23 @@ const currentUserController = async (req, res) => {
   res.status(200).json(user);
 };
 
-module.exports = { signupController, loginController, logoutController, currentUserController };
+const refreshUserTokenController = async (req, res) => {
+  const { refresh_token } = req.body;
+  if (!refresh_token) {
+    next(createAuthError());
+  }
+
+  const user = jwt.decode(refresh_token, JWT_SECRET);
+
+  const newTokens = await refreshUserToken(user, refresh_token);
+
+  res.status(200).json(newTokens);
+};
+
+module.exports = {
+  signupController,
+  loginController,
+  logoutController,
+  currentUserController,
+  refreshUserTokenController,
+};

@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  refresh_token: {
+    type: String,
+    default: null,
+  },
   isNewUser: {
     type: Boolean,
     default: true,
