@@ -1,5 +1,12 @@
 const products = require('../db/productsConst');
+const { createProdObj } = require('../utils/ProdListCreators');
 const { createServerError } = require('../utils/errorCreators');
+
+const getStopProduct = async bloodType => {
+  return products.items
+    .filter(item => item.groupBloodNotAllowed[bloodType])
+    .map(item => createProdObj({ product: item, weight: item.weight || 100 }));
+}
 
 const isValidProductId = async productId => {
   try {
@@ -29,4 +36,4 @@ const searchProductById = async productId => {
   }
 }
 
-module.exports = { isValidProductId, searchProductsByTitle, searchProductById };
+module.exports = { isValidProductId, searchProductsByTitle, searchProductById, getStopProduct};
