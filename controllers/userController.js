@@ -8,7 +8,7 @@ const signupController = async (req, res) => {
   const { name, email, password } = req.body;
 
   await signupUser(name, email, password);
-  res.status(201).json({ message: 'Registration successful' });
+  res.status(201).json({ message: 'User created' });
 };
 
 const loginController = async (req, res) => {
