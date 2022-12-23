@@ -10,8 +10,8 @@ const productSchema = new mongoose.Schema({
     default: 100,
   },
   title: mongoose.Schema({
-    ru: { type: String, index: true },
-    ua: { type: String, index: true },
+    ru: { type: String },
+    ua: { type: String },
   }),
   calories: {
     type: Number,
