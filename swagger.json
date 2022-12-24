@@ -178,7 +178,7 @@
         }
       }
     },
-    "/google": {
+    "/user/google": {
       "get": {
         "tags": ["google"],
         "summary": "Authenticate user through google servers",
@@ -191,7 +191,7 @@
         }
       }
     },
-    "/google-redirect": {
+    "/user/google-redirect": {
       "get": {
         "tags": ["google"],
         "summary": "Authenticate user through google servers",
