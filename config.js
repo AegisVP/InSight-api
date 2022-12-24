@@ -9,5 +9,5 @@ module.exports = {
   BACKEND_URL: process.env.BACKEND_URL,
   FRONTEND_URL: process.env.FRONTEND_URL,
   JWT_SECRET: process.env.JWT_SECRET || 'JWT Secret Message',
-  FRONTEND_LOCAL: Boolean(process.env.FRONTEND_LOCAL),
+  FRONTEND_LOCAL: String(process.env.FRONTEND_LOCAL).toLocaleLowerCase() === 'false',
 };
