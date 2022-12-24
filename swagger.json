@@ -3,7 +3,7 @@
   "info": {
     "title": "Slim Mom`s - OpenAPI 3.0",
     "version": "1.0.0",
-    "description": "This is a description of the InSight team's Slim Mom's project server, based on the OpenAPI 3.0 specification.\n\nThis server allows you to get information about the daily calorie intake and a list of foods to avoid based on physical data and blood type.\n\nAlso, the ability to save, receive and edit the list of foods eaten for a specific day is implemented.\nThe information is tied to a specific user (a token is used).\n\nImplemented registration, user login/logout\n\nSome useful links:\n- [The Slim Mom's repository](https://github.com/AegisVP/InSight-web)\n- [The source API definition for the Slim Mom's](https://github.com/AegisVP/InSight-api/blob/main/swagger.json)"
+    "description": "This is a description of the InSight team's Slim Mom's project server, based on the OpenAPI 3.0 specification.\n\nThis server allows you to get information about the daily calorie intake and a list of foods to avoid based on physical data and blood type.\n\nAlso, the ability to save, receive and edit the list of foods consumed for a specific day is implemented.\nThe information is tied to a specific user (a token is used).\n\nImplemented user registration, login/logout\n\nSome useful links:\n- [The Slim Mom's repository](https://github.com/AegisVP/InSight-web)\n- [The source API definition for the Slim Mom's](https://github.com/AegisVP/InSight-api/blob/main/swagger.json)"
   },
   "servers": [
     {
@@ -16,6 +16,10 @@
       "description": "Operations about user"
     },
     {
+      "name": "google",
+      "description": "User authentication through Google services"
+    },
+    {
       "name": "diet",
       "description": "Get information about the daily calorie intake and a list of foods to avoid"
     },
@@ -25,15 +29,13 @@
     },
     {
       "name": "diary",
-      "description": "Daily consumption diary"
+      "description": "Daily calorie consumption diary"
     }
   ],
   "paths": {
     "/user": {
       "post": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "Create user",
         "description": "Create new user",
         "operationId": "createUser",
@@ -72,9 +74,7 @@
     },
     "/user/login": {
       "post": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "Logs user into the system",
         "description": "Logs user into the system",
         "operationId": "loginUser",
@@ -90,7 +90,7 @@
         },
         "responses": {
           "200": {
-            "description": "successful operation",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -113,9 +113,7 @@
     },
     "/user/logout": {
       "patch": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "Logs out current logged in user session",
         "description": "This can only be done by the logged in user.",
         "operationId": "logoutUser",
@@ -142,11 +140,9 @@
     },
     "/user/current": {
       "get": {
-        "tags": [
-          "user"
-        ],
-        "summary": "Get user by user id",
-        "description": "Get user by user id",
+        "tags": ["user"],
+        "summary": "Get user information",
+        "description": "Get current user information",
         "operationId": "getUserById",
         "parameters": [
           {
@@ -170,9 +166,6 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid user id supplied"
-          },
           "401": {
             "description": "Missing header with authorization token"
           },
@@ -185,13 +178,45 @@
         }
       }
     },
+    "/user/google": {
+      "get": {
+        "tags": ["google"],
+        "summary": "Authenticate user through google servers",
+        "description": "Initiates the process of user authentication on google servers",
+        "operationId": "googleInitiate",
+        "responses": {
+          "301": {
+            "description": "Redirect to Google servers for user authentication"
+          }
+        }
+      }
+    },
+    "/user/google-redirect": {
+      "get": {
+        "tags": ["google"],
+        "summary": "Authenticate user through google servers",
+        "description": "Get user by user id",
+        "operationId": "googleRedirect",
+        "parameters": [
+          {
+            "name": " ",
+            "in": "query",
+            "required": true,
+            "description": "Google servers automatically generate query parameters to be passed back"
+          }
+        ],
+        "responses": {
+          "301": {
+            "description": "Redirect to FrontEnd with successful user authentication parameters"
+          }
+        }
+      }
+    },
     "/diet": {
       "post": {
-        "tags": [
-          "diet"
-        ],
-        "summary": "Get information about the daily calorie intake and a list of foods to avoid",
-        "description": "Available to all users",
+        "tags": ["diet"],
+        "summary": "Calculate diet",
+        "description": "Get information about the daily calorie intake and a list of foods to avoid. Available to all users",
         "operationId": "getDiet",
         "requestBody": {
           "content": {
@@ -214,7 +239,7 @@
             }
           },
           "404": {
-            "description": "Missing required field(s) - {fildName}"
+            "description": "Missing required field(s) - {fieldName}"
           },
           "500": {
             "description": "Server error"
@@ -224,11 +249,9 @@
     },
     "/diet/user": {
       "post": {
-        "tags": [
-          "diet"
-        ],
-        "summary": "Get information about the daily calorie intake and a list of foods to avoid. Save parameters to user Object",
-        "description": "Available to authorize users",
+        "tags": ["diet"],
+        "summary": "Calculate user diet",
+        "description": "Get information about the daily calorie intake and a list of foods to avoid. Save parameters to user Object. Available to authenticated users only",
         "operationId": "getUserDiet",
         "parameters": [
           {
@@ -262,7 +285,7 @@
             }
           },
           "401": {
-            "description": "No authorized"
+            "description": "Not authorized"
           },
           "500": {
             "description": "Server error"
@@ -272,9 +295,7 @@
     },
     "/products": {
       "get": {
-        "tags": [
-          "products"
-        ],
+        "tags": ["products"],
         "summary": "Get information about specific food by title",
         "description": "",
         "operationId": "getProductByTitle",
@@ -326,10 +347,8 @@
     },
     "/products/{prodId}": {
       "get": {
-        "tags": [
-          "products"
-        ],
-        "summary": "Get information about specific food by id",
+        "tags": ["products"],
+        "summary": "Get information about specific product by id",
         "description": "",
         "operationId": "getProductById",
         "parameters": [
@@ -364,7 +383,7 @@
             }
           },
           "400": {
-            "description": "Invalid product title supplied"
+            "description": "Invalid product id supplied"
           },
           "401": {
             "description": "Not authorized"
@@ -380,17 +399,15 @@
     },
     "/diary/{day}": {
       "get": {
-        "tags": [
-          "diary"
-        ],
-        "summary": "Get list of foods eaten for a specific day",
+        "tags": ["diary"],
+        "summary": "Get list of foods consumed for a specific day",
         "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'",
         "operationId": "getDiaryByDate",
         "parameters": [
           {
             "name": "day",
             "in": "path",
-            "description": "Day that needs to be fetched",
+            "description": "Date for which to fetch the list of products",
             "required": true,
             "schema": {
               "type": "string"
@@ -432,17 +449,15 @@
         }
       },
       "post": {
-        "tags": [
-          "diary"
-        ],
-        "summary": "Create a note about the food eaten on a specific day",
+        "tags": ["diary"],
+        "summary": "Create a note about the food consumed on a specific day",
         "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'. In response, you receive a product that was created",
         "operationId": "createDiaryItemByDate",
         "parameters": [
           {
             "name": "day",
             "in": "path",
-            "description": "Date that needs to be fetched",
+            "description": "Date when product was consumed",
             "required": true,
             "schema": {
               "type": "string"
@@ -479,7 +494,7 @@
             }
           },
           "400": {
-            "description": "Invalid product title supplied"
+            "description": "Invalid parameters supplied"
           },
           "401": {
             "description": "Missing header with authorization token"
@@ -495,9 +510,7 @@
     },
     "/diary/{day}/{prodId}": {
       "delete": {
-        "tags": [
-          "diary"
-        ],
+        "tags": ["diary"],
         "summary": "Delete information about specific food by product id",
         "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022/5d51694802b2373622ff553b'. In response, you receive a product that was deleted",
         "operationId": "deleteProductById",
@@ -542,7 +555,7 @@
             }
           },
           "400": {
-            "description": "Invalid product title supplied"
+            "description": "Invalid date or product id supplied"
           },
           "401": {
             "description": "Missing header with authorization token"
