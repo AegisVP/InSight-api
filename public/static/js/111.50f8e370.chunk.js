@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkslim_mom=self.webpackChunkslim_mom||[]).push([[111],{9111:function(e,n,s){s.r(n);var u=s(184);n.default=function(){return(0,u.jsx)("h1",{children:"Diary page"})}}}]);
-//# sourceMappingURL=111.50f8e370.chunk.js.map

@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkslim_mom=self.webpackChunkslim_mom||[]).push([[694],{3694:function(n,s,u){u.r(s);var a=u(7834),e=u(470),i=u(184);s.default=function(){var n=(0,a.a)().isLoggedin;return(0,i.jsx)(e.Fg,{to:n?"calculator":"login"})}}}]);
-//# sourceMappingURL=694.79e52cf6.chunk.js.map

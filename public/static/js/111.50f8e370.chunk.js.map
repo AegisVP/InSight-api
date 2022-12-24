@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/111.50f8e370.chunk.js","mappings":"6HAIA,UAJc,WACZ,OAAO,sCACR,C","sources":["pages/Diary.jsx"],"sourcesContent":["const Diary = () => {\r\n  return <h1>Diary page</h1>;\r\n};\r\n\r\nexport default Diary;\r\n"],"names":[],"sourceRoot":""}
