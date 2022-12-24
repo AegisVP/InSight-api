@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const router = express.Router();
-const { FRONTEND_LOCAL, FRONTEND_URL } = require('./config');
+const { FRONTEND_LOCAL, FRONTEND_URL } = require('../config');
 
 if (FRONTEND_LOCAL) {
   router.use(express.static(path.resolve('./public')));
