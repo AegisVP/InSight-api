@@ -35,9 +35,7 @@
   "paths": {
     "/user": {
       "post": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "Create user",
         "description": "Create new user",
         "operationId": "createUser",
@@ -76,9 +74,7 @@
     },
     "/user/login": {
       "post": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "Logs user into the system",
         "description": "Logs user into the system",
         "operationId": "loginUser",
@@ -117,9 +113,7 @@
     },
     "/user/logout": {
       "patch": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "Logs out current logged in user session",
         "description": "This can only be done by the logged in user.",
         "operationId": "logoutUser",
@@ -146,9 +140,7 @@
     },
     "/user/current": {
       "get": {
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "summary": "Get user information",
         "description": "Get current user information",
         "operationId": "getUserById",
@@ -188,9 +180,7 @@
     },
     "/google": {
       "get": {
-        "tags": [
-          "google"
-        ],
+        "tags": ["google"],
         "summary": "Authenticate user through google servers",
         "description": "Initiates the process of user authentication on google servers",
         "operationId": "googleInitiate",
@@ -203,9 +193,7 @@
     },
     "/google-redirect": {
       "get": {
-        "tags": [
-          "google"
-        ],
+        "tags": ["google"],
         "summary": "Authenticate user through google servers",
         "description": "Get user by user id",
         "operationId": "googleRedirect",
@@ -226,9 +214,7 @@
     },
     "/diet": {
       "post": {
-        "tags": [
-          "diet"
-        ],
+        "tags": ["diet"],
         "summary": "Calculate diet",
         "description": "Get information about the daily calorie intake and a list of foods to avoid. Available to all users",
         "operationId": "getDiet",
@@ -263,9 +249,7 @@
     },
     "/diet/user": {
       "post": {
-        "tags": [
-          "diet"
-        ],
+        "tags": ["diet"],
         "summary": "Calculate user diet",
         "description": "Get information about the daily calorie intake and a list of foods to avoid. Save parameters to user Object. Available to authenticated users only",
         "operationId": "getUserDiet",
@@ -311,9 +295,7 @@
     },
     "/products": {
       "get": {
-        "tags": [
-          "products"
-        ],
+        "tags": ["products"],
         "summary": "Get information about specific food by title",
         "description": "",
         "operationId": "getProductByTitle",
@@ -365,9 +347,7 @@
     },
     "/products/{prodId}": {
       "get": {
-        "tags": [
-          "products"
-        ],
+        "tags": ["products"],
         "summary": "Get information about specific product by id",
         "description": "",
         "operationId": "getProductById",
@@ -419,9 +399,7 @@
     },
     "/diary/{day}": {
       "get": {
-        "tags": [
-          "diary"
-        ],
+        "tags": ["diary"],
         "summary": "Get list of foods consumed for a specific day",
         "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'",
         "operationId": "getDiaryByDate",
@@ -471,9 +449,7 @@
         }
       },
       "post": {
-        "tags": [
-          "diary"
-        ],
+        "tags": ["diary"],
         "summary": "Create a note about the food consumed on a specific day",
         "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022'. In response, you receive a product that was created",
         "operationId": "createDiaryItemByDate",
@@ -534,9 +510,7 @@
     },
     "/diary/{day}/{prodId}": {
       "delete": {
-        "tags": [
-          "diary"
-        ],
+        "tags": ["diary"],
         "summary": "Delete information about specific food by product id",
         "description": "Request must include date in format DDMMYYYY (DD - day, MM - month, YYYY - year). Example - '/diary/17122022/5d51694802b2373622ff553b'. In response, you receive a product that was deleted",
         "operationId": "deleteProductById",
