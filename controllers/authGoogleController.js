@@ -1,5 +1,11 @@
 const axios = require('axios');
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BACKEND_URL, FRONTEND_URL, GOOGLE_FRONTEND_HANDLER } = require('../config');
+const {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  BACKEND_URL,
+  FRONTEND_URL,
+  GOOGLE_FRONTEND_HANDLER,
+} = require('../config');
 const queryString = require('query-string');
 const { authWithGoogle } = require('../services/users');
 
