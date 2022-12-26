@@ -15,7 +15,7 @@ const loginController = async (req, res) => {
   const user = await loginUser(email, password);
 
   if (!user) {
-    return res.redirect(`${BACKEND_URL}/user/google`);
+    return res.redirect(302, `${BACKEND_URL}/user/google`);
   }
   return res.status(200).json(user);
 };
