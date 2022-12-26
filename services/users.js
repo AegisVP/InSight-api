@@ -57,6 +57,7 @@ const authWithGoogle = async (name, email) => {
     const token = createToken(user);
 
     user.token = token;
+    user.googleAuth = true;
 
     await user.save();
     return { name: user.name, email: user.email, token };
