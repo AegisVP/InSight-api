@@ -23,12 +23,8 @@ const signupUser = async (name, email, password) => {
 
 const loginUser = async (email, password) => {
   const user = await User.findOne({ email });
-  if (!user) {
+  if (!user || user.googleAuth) {
     throw createAuthError('Email or password is wrong');
-  }
-
-  if (user.googleAuth) {
-    return false;
   }
 
   if (!(await bcrypt.compare(password, user.password))) {

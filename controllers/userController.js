@@ -1,6 +1,5 @@
 const { signupUser, loginUser } = require('../services/users');
 const { User } = require('../db/userModel');
-const { BACKEND_URL } = require('../config');
 
 const signupController = async (req, res) => {
   const { name, email, password } = req.body;
@@ -14,9 +13,6 @@ const loginController = async (req, res) => {
 
   const user = await loginUser(email, password);
 
-  if (!user) {
-    return res.redirect(302, `${BACKEND_URL}/user/google`);
-  }
   return res.status(200).json(user);
 };
 
