@@ -8,7 +8,7 @@ async function start() {
     mongoConnect();
 
     app.listen(PORT, () => {
-      console.log(`Server started successfully. You can use our API at ${BACKEND_URL}`);
+      console.log(`Server started successfully. You can use our ${process.env.IS_PULL_REQUEST ? 'PR Preview':'Live'} API at ${BACKEND_URL}`);
     });
   } catch (error) {
     console.error('Error:', error.message);
