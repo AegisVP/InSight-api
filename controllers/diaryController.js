@@ -1,12 +1,7 @@
 const { createNotFoundHttpError } = require('../utils/errorCreators');
 const { createProdArrFromDiary, createProdObj } = require('../utils/ProdListCreators');
 const { isValidProductId } = require('../services/products');
-const {
-  getDiary,
-  createDiaryNote,
-  removeDiaryNoteById,
-  updateDiaryNote,
-} = require('../services/diary');
+const { getDiary, createDiaryNote, removeDiaryNoteById, updateDiaryNote } = require('../services/diary');
 
 const getDiaryByDay = async (req, res, next) => {
   const { _id } = req.user;
@@ -38,7 +33,7 @@ const addDiaryNote = async (req, res, next) => {
     return res.status(201).json(createProdObj(newDiaryNote));
   }
 
-  const newNote = await updateDiaryNote(diaryNote._id, { weight: diaryNote.weight + weight });
+  const newNote = await updateDiaryNote(diaryNote._id, { weight: parseInt(diaryNote.weight) + parseInt(weight) });
   return res.status(200).json(createProdObj(newNote));
 };
 
