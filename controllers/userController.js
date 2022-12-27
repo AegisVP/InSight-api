@@ -2,7 +2,7 @@ const { signupUser, loginUser, refreshUserToken } = require('../services/users')
 const { User } = require('../db/userModel');
 const { createAuthError } = require('../utils/errorCreators');
 const jwt = require('jsonwebtoken');
-const { BACKEND_URL, JWT_SECRET } = process.env;
+const { JWT_SECRET } = process.env;
 
 const signupController = async (req, res) => {
   const { name, email, password } = req.body;
@@ -16,9 +16,6 @@ const loginController = async (req, res) => {
 
   const user = await loginUser(email, password);
 
-  if (!user) {
-    res.redirect(`${BACKEND_URL}/user/google`);
-  }
   res.status(200).json(user);
 };
 
