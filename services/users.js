@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { User } = require('../db/userModel');
 const { signupError, createAuthError } = require('../utils/errorCreators');
-const { createToken } = require('../utils/createToken');
+const { createToken, createRefreshToken } = require('../utils/createToken');
 
 const signupUser = async (name, email, password) => {
   if (await User.findOne({ email })) {
@@ -14,11 +14,13 @@ const signupUser = async (name, email, password) => {
   });
 
   const token = createToken(user);
+  const refresh_token = createRefreshToken(user);
 
   user.token = token;
+  user.refresh_token = refresh_token;
 
   await user.save();
-  return { name: user.name, email: user.email, token };
+  return;
 };
 
 const loginUser = async (email, password) => {
@@ -32,10 +34,16 @@ const loginUser = async (email, password) => {
   }
 
   const token = createToken(user);
-  const loggedInUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true }).select({
+  const refresh_token = createRefreshToken(user);
+  const loggedInUser = await User.findByIdAndUpdate(
+    user._id,
+    { token, refresh_token },
+    { runValidators: true, new: true }
+  ).select({
     token: 1,
     email: 1,
     name: 1,
+    refresh_token: 1,
     _id: 0,
   });
 
@@ -51,18 +59,36 @@ const authWithGoogle = async (name, email) => {
     });
 
     const token = createToken(user);
+    const refresh_token = createRefreshToken(user);
 
     user.token = token;
+    user.refresh_token = refresh_token;
     user.googleAuth = true;
 
     await user.save();
-    return { name: user.name, email: user.email, token };
+    return { name: user.name, email: user.email, token, refresh_token };
   } else if (user.googleAuth) {
     const token = createToken(user);
-    const newUser = await User.findByIdAndUpdate(user._id, { token }, { runValidators: true, new: true });
+    const refresh_token = createRefreshToken(user);
+
+    const newUser = await User.findByIdAndUpdate(
+      user._id,
+      { token, refresh_token },
+      { runValidators: true, new: true }
+    );
 
     return newUser;
   }
 };
 
-module.exports = { signupUser, loginUser, authWithGoogle };
+const refreshUserToken = async (user, refresh_token) => {
+  const auditUser = await User.findById(user._id);
+  if (!auditUser || refresh_token !== auditUser.refresh_token) {
+    throw createAuthError();
+  }
+  const token = createToken(user);
+  await User.findByIdAndUpdate(user._id, { token }, { runValidators: true });
+  return { token, refresh_token };
+};
+
+module.exports = { signupUser, loginUser, authWithGoogle, refreshUserToken };

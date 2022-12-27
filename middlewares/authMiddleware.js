@@ -14,6 +14,10 @@ const authMiddleware = async (req, res, next) => {
 
     const user = jwt.decode(token, JWT_SECRET);
 
+    if (Date.now() / 1000 > user.exp) {
+      next(createAuthError('Invalid credentials'));
+    }
+
     const auditUser = await User.findById(user._id);
 
     if (!auditUser) {
