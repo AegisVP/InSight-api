@@ -8,7 +8,7 @@ const getProductsByTitle = async (req, res, next) => {
   if (!products.length) {
     return next(createNotFoundHttpError("Product not found"));
   }
-  res.status(200).json(createProdArrFromArr(products));
+  return res.status(200).json(createProdArrFromArr(products));
 };
 
 const getProductById = async (req, res, next) => {

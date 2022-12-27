@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../config');
 const { User } = require('../db/userModel');
 const { createAuthError } = require('../utils/errorCreators');
+
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -10,7 +12,7 @@ const authMiddleware = async (req, res, next) => {
       next(createAuthError());
     }
 
-    const user = jwt.decode(token, process.env.JWT_SECRET);
+    const user = jwt.decode(token, JWT_SECRET);
 
     if (Date.now() / 1000 > user.exp) {
       next(createAuthError('Invalid credentials'));

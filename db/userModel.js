@@ -31,21 +31,23 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  height: {
-    type: Number,
-  },
-  age: {
-    type: Number,
-  },
-  currentWeight: {
-    type: Number,
-  },
-  desireWeight: {
-    type: Number,
-  },
-  bloodType: {
-    type: Number,
-  },
+  params: mongoose.Schema({
+    height: {
+      type: Number,
+    },
+    age: {
+      type: Number,
+    },
+    currentWeight: {
+      type: Number,
+    },
+    desireWeight: {
+      type: Number,
+    },
+    bloodType: {
+      type: Number,
+    },
+  }),
 });
 
 userSchema.pre('save', async function () {

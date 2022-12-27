@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const logger = require('morgan');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
@@ -20,8 +21,9 @@ app.use('/diary', diaryRouter);
 app.use('/products', productsRouter);
 
 app.use('/InSight-web', frontendRouter);
+app.get('/', (_, res) => res.redirect('/api-docs'));
 
-app.get('/', (_, res) => res.redirect('/InSight-web'));
+app.use(express.static(path.resolve('./public')));
 
 app.use((_, res) => res.status(404).json({ message: 'Not found' }));
 

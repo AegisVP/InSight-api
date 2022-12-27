@@ -1,5 +1,11 @@
 const axios = require('axios');
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BACKEND_URL, FRONTEND_URL, GOOGLE_FRONTEND_HANDLER } = process.env;
+const {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  BACKEND_URL,
+  FRONTEND_URL,
+  GOOGLE_FRONTEND_HANDLER,
+} = require('../config');
 const queryString = require('query-string');
 const { authWithGoogle } = require('../services/users');
 
@@ -15,7 +21,7 @@ const googleAuth = (req, res) => {
     prompt: 'consent',
   });
 
-  res.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`);
+  return res.redirect(`https://accounts.google.com/o/oauth2/v2/auth?${stringifiedParams}`);
 };
 
 const googleRedirect = async (req, res) => {

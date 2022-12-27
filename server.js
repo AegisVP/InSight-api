@@ -1,5 +1,5 @@
 require('dotenv').config();
-const PORT = process.env.PORT || 8080;
+const { PORT } = require('./config');
 const { app } = require('./app');
 const { mongoConnect } = require('./db/connections');
 

@@ -1,14 +1,17 @@
 const { signupUser, loginUser, refreshUserToken } = require('../services/users');
 const { User } = require('../db/userModel');
+
 const { createAuthError } = require('../utils/errorCreators');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 
+
 const signupController = async (req, res) => {
   const { name, email, password } = req.body;
 
-  await signupUser(name, email, password);
-  res.status(201).json({ message: 'User created' });
+
+  const user = await signupUser(name, email, password);
+  return res.status(201).json(user);
 };
 
 const loginController = async (req, res) => {
@@ -16,19 +19,23 @@ const loginController = async (req, res) => {
 
   const user = await loginUser(email, password);
 
-  res.status(200).json(user);
+
+  return res.status(200).json(user);
+
 };
 
 const logoutController = async (req, res) => {
   const { _id } = req.user;
-  await User.findByIdAndUpdate(_id, { token: null, refresh_token: null }, { runValidators: true });
-  res.status(204);
+
+  await User.findByIdAndUpdate(_id, { token: null }, { runValidators: true });
+  return res.status(204).send();
+
 };
 
 const currentUserController = async (req, res) => {
   const { _id } = req.user;
   const user = await User.findById(_id).select({ password: 0, _id: 0, googleAuth: 0, __v: 0, token: 0 });
-  res.status(200).json(user);
+  return res.status(200).json(user);
 };
 
 const refreshUserTokenController = async (req, res) => {

@@ -1,4 +1,4 @@
-const { getStopProduct } = require('./getStopProducts');
+const { getStopProduct } = require('./products');
 const { createServerError } = require('../utils/errorCreators');
 
 async function dietCalculator({ height, age, currentWeight, desireWeight, bloodType }) {

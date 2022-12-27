@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../config');
 
 const createToken = user => {
   const token = jwt.sign(
@@ -20,7 +21,7 @@ const createRefreshToken = user => {
       _id: user._id,
       type: 'refresh',
     },
-    process.env.JWT_SECRET
+    JWT_SECRET
   );
   return token;
 };
